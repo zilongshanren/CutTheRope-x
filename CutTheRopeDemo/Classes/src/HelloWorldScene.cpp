@@ -8,6 +8,7 @@
 #include "HelloWorldScene.h"
 #include "SimpleAudioEngine.h"
 #include "GLES-Render.h"
+#include "LevelFileHandler.h"
 
 using namespace cocos2d;
 using namespace CocosDenshion;
@@ -103,6 +104,12 @@ HelloWorld::HelloWorld()
 
     srand(time(NULL));
     
+    //load xml level
+    const char *levelPath = CCFileUtils::sharedFileUtils()->fullPathForFilename("level0.xml").c_str();
+    CCLOG("level path = %s", levelPath);
+    LevelFileHelper *levelHelper = new LevelFileHelper(levelPath);
+    
+    
     // init physics
     this->initPhysics();
     
@@ -116,6 +123,8 @@ HelloWorld::HelloWorld()
     SimpleAudioEngine::sharedEngine()->setBackgroundMusicVolume(0.4);
     
     this->schedule(SEL_SCHEDULE(&HelloWorld::changeCrocAttitude), 4.0);
+    
+    
     
     scheduleUpdate();
 }

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<level>
+    <pineapple id="1" x="0.50" y="0.70"/>
+    <pineapple id="2" x="0.50" y="1.00" damping="0.01"/>
+    <rope>
+        <anchorA body="-1" x="0.15" y="0.80"/>
+        <anchorB body="1"/>
+    </rope>
+    <rope>
+        <anchorA body="1"/>
+        <anchorB body="-1" x="0.85" y="0.80"/>
+    </rope>
+    <rope>
+        <anchorA body="1"/>
+        <anchorB body="-1" x="0.83" y="0.60"/>
+    </rope>
+    <rope sagity="1.0">
+        <anchorA body="-1" x="0.65" y="1.0"/>
+        <anchorB body="2"/>
+    </rope>
+</level>

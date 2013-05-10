@@ -294,6 +294,13 @@
 		89DB8489173C8DE100E6EEC5 /* splash.caf in Resources */ = {isa = PBXBuildFile; fileRef = 89DB8485173C8DE100E6EEC5 /* splash.caf */; };
 		89DB848C173CCAC100E6EEC5 /* GLES-Render.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89DB848A173CCAC000E6EEC5 /* GLES-Render.cpp */; };
 		89DB8491173CE95800E6EEC5 /* MyContactListener.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89DB848F173CE95800E6EEC5 /* MyContactListener.cpp */; };
+		89DB8494173D242A00E6EEC5 /* CoordinateHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89DB8492173D242A00E6EEC5 /* CoordinateHelper.cpp */; };
+		89DB8496173D25CD00E6EEC5 /* level0.xml in Resources */ = {isa = PBXBuildFile; fileRef = 89DB8495173D25CD00E6EEC5 /* level0.xml */; };
+		89DB8499173D281800E6EEC5 /* AbstractModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89DB8497173D281800E6EEC5 /* AbstractModel.cpp */; };
+		89DB849C173D288600E6EEC5 /* PineappleModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89DB849A173D288600E6EEC5 /* PineappleModel.cpp */; };
+		89DB849F173D297D00E6EEC5 /* RopeModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89DB849D173D297D00E6EEC5 /* RopeModel.cpp */; };
+		89DB84A2173D2A3A00E6EEC5 /* LevelFileHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89DB84A0173D2A3A00E6EEC5 /* LevelFileHandler.cpp */; };
+		89DB84A4173D32BD00E6EEC5 /* test.xml in Resources */ = {isa = PBXBuildFile; fileRef = 89DB84A3173D32BD00E6EEC5 /* test.xml */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -909,6 +916,18 @@
 		89DB848B173CCAC000E6EEC5 /* GLES-Render.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GLES-Render.h"; path = "Classes/include/GLES-Render.h"; sourceTree = "<group>"; };
 		89DB848F173CE95800E6EEC5 /* MyContactListener.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MyContactListener.cpp; path = Classes/MyContactListener.cpp; sourceTree = "<group>"; };
 		89DB8490173CE95800E6EEC5 /* MyContactListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyContactListener.h; path = Classes/MyContactListener.h; sourceTree = "<group>"; };
+		89DB8492173D242A00E6EEC5 /* CoordinateHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CoordinateHelper.cpp; path = Classes/CoordinateHelper.cpp; sourceTree = "<group>"; };
+		89DB8493173D242A00E6EEC5 /* CoordinateHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CoordinateHelper.h; path = Classes/CoordinateHelper.h; sourceTree = "<group>"; };
+		89DB8495173D25CD00E6EEC5 /* level0.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = level0.xml; path = Resources/level0.xml; sourceTree = "<group>"; };
+		89DB8497173D281800E6EEC5 /* AbstractModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AbstractModel.cpp; path = Classes/AbstractModel.cpp; sourceTree = "<group>"; };
+		89DB8498173D281800E6EEC5 /* AbstractModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AbstractModel.h; path = Classes/AbstractModel.h; sourceTree = "<group>"; };
+		89DB849A173D288600E6EEC5 /* PineappleModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PineappleModel.cpp; path = Classes/PineappleModel.cpp; sourceTree = "<group>"; };
+		89DB849B173D288600E6EEC5 /* PineappleModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PineappleModel.h; path = Classes/PineappleModel.h; sourceTree = "<group>"; };
+		89DB849D173D297D00E6EEC5 /* RopeModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RopeModel.cpp; path = Classes/RopeModel.cpp; sourceTree = "<group>"; };
+		89DB849E173D297D00E6EEC5 /* RopeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RopeModel.h; path = Classes/RopeModel.h; sourceTree = "<group>"; };
+		89DB84A0173D2A3A00E6EEC5 /* LevelFileHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LevelFileHandler.cpp; path = Classes/LevelFileHandler.cpp; sourceTree = "<group>"; };
+		89DB84A1173D2A3A00E6EEC5 /* LevelFileHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LevelFileHandler.h; path = Classes/LevelFileHandler.h; sourceTree = "<group>"; };
+		89DB84A3173D32BD00E6EEC5 /* test.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = test.xml; path = Resources/test.xml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -983,6 +1002,8 @@
 				89DB847D173C8DD900E6EEC5 /* sd */,
 				89DB847E173C8DD900E6EEC5 /* hd */,
 				89DB847C173C8DC600E6EEC5 /* default */,
+				89DB8495173D25CD00E6EEC5 /* level0.xml */,
+				89DB84A3173D32BD00E6EEC5 /* test.xml */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -2102,6 +2123,16 @@
 				89DB8475173C8C8D00E6EEC5 /* AppDelegate.h */,
 				89DB848F173CE95800E6EEC5 /* MyContactListener.cpp */,
 				89DB8490173CE95800E6EEC5 /* MyContactListener.h */,
+				89DB8492173D242A00E6EEC5 /* CoordinateHelper.cpp */,
+				89DB8493173D242A00E6EEC5 /* CoordinateHelper.h */,
+				89DB8497173D281800E6EEC5 /* AbstractModel.cpp */,
+				89DB8498173D281800E6EEC5 /* AbstractModel.h */,
+				89DB849A173D288600E6EEC5 /* PineappleModel.cpp */,
+				89DB849B173D288600E6EEC5 /* PineappleModel.h */,
+				89DB849D173D297D00E6EEC5 /* RopeModel.cpp */,
+				89DB849E173D297D00E6EEC5 /* RopeModel.h */,
+				89DB84A0173D2A3A00E6EEC5 /* LevelFileHandler.cpp */,
+				89DB84A1173D2A3A00E6EEC5 /* LevelFileHandler.h */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -2221,6 +2252,8 @@
 				89DB8487173C8DE100E6EEC5 /* CheeZeeJungle.caf in Resources */,
 				89DB8488173C8DE100E6EEC5 /* cut.caf in Resources */,
 				89DB8489173C8DE100E6EEC5 /* splash.caf in Resources */,
+				89DB8496173D25CD00E6EEC5 /* level0.xml in Resources */,
+				89DB84A4173D32BD00E6EEC5 /* test.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2488,6 +2521,11 @@
 				89DB847A173C8C8D00E6EEC5 /* AppDelegate.cpp in Sources */,
 				89DB848C173CCAC100E6EEC5 /* GLES-Render.cpp in Sources */,
 				89DB8491173CE95800E6EEC5 /* MyContactListener.cpp in Sources */,
+				89DB8494173D242A00E6EEC5 /* CoordinateHelper.cpp in Sources */,
+				89DB8499173D281800E6EEC5 /* AbstractModel.cpp in Sources */,
+				89DB849C173D288600E6EEC5 /* PineappleModel.cpp in Sources */,
+				89DB849F173D297D00E6EEC5 /* RopeModel.cpp in Sources */,
+				89DB84A2173D2A3A00E6EEC5 /* LevelFileHandler.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
