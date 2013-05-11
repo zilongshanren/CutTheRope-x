@@ -7,7 +7,7 @@
 //
 
 #include "MyContactListener.h"
-#import "MyContactListener.h"
+#include "MyContactListener.h"
 
 MyContactListener::MyContactListener() : _contacts() {
 }

@@ -52,12 +52,16 @@ void LevelSelectionScene::selectLevel(cocos2d::CCObject *pSender)
     const char *levelName = CCString::createWithFormat("level%d.xml",levelNumber)->getCString();
     bool fileExists = fileUtils->isFileExist(fileUtils->getWritablePath() + levelName);
     
+    CCLog("file path = %s",fileUtils->fullPathForFilename("level0.xml").c_str());
+
+    
     LevelFileHelper *fileHandler;
     if (fileExists) {
         fileHandler = new LevelFileHelper((fileUtils->getWritablePath() + levelName).c_str());
     }else{
         fileHandler = new LevelFileHelper(fileUtils->fullPathForFilename("level0.xml").c_str());
     }
+    
     
     GameManager::getInstance()->levelNumber = levelNumber;
     

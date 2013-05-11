@@ -12,6 +12,7 @@
 #include "RopeModel.h"
 #include "Constants.h"
 #include "GameManager.h"
+#include <algorithm>
 
 using namespace tinyxml2;
 

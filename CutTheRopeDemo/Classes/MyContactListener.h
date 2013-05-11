@@ -9,9 +9,9 @@
 #ifndef __CutTheRopeDemo__MyContactListener__
 #define __CutTheRopeDemo__MyContactListener__
 
-#import "Box2D.h"
-#import <vector>
-#import <algorithm>
+#include "Box2D.h"
+#include <vector>
+#include <algorithm>
 
 struct MyContact {
     b2Fixture *fixtureA;
