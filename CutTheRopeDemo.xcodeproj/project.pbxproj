@@ -303,6 +303,7 @@
 		89DB84A4173D32BD00E6EEC5 /* test.xml in Resources */ = {isa = PBXBuildFile; fileRef = 89DB84A3173D32BD00E6EEC5 /* test.xml */; };
 		89DB84A9173DE01600E6EEC5 /* LevelEditor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89DB84A7173DE01600E6EEC5 /* LevelEditor.cpp */; };
 		89DB84AC173DE58300E6EEC5 /* Constants.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89DB84AA173DE58300E6EEC5 /* Constants.cpp */; };
+		89DB84AF173DEC6400E6EEC5 /* RopeSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89DB84AD173DEC6300E6EEC5 /* RopeSprite.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -934,6 +935,8 @@
 		89DB84A8173DE01600E6EEC5 /* LevelEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LevelEditor.h; path = Classes/LevelEditor.h; sourceTree = "<group>"; };
 		89DB84AA173DE58300E6EEC5 /* Constants.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Constants.cpp; path = Classes/Constants.cpp; sourceTree = "<group>"; };
 		89DB84AB173DE58300E6EEC5 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Constants.h; path = Classes/Constants.h; sourceTree = "<group>"; };
+		89DB84AD173DEC6300E6EEC5 /* RopeSprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RopeSprite.cpp; path = Classes/RopeSprite.cpp; sourceTree = "<group>"; };
+		89DB84AE173DEC6400E6EEC5 /* RopeSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RopeSprite.h; path = Classes/RopeSprite.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2204,6 +2207,8 @@
 				89DB84A1173D2A3A00E6EEC5 /* LevelFileHandler.h */,
 				89DB84A7173DE01600E6EEC5 /* LevelEditor.cpp */,
 				89DB84A8173DE01600E6EEC5 /* LevelEditor.h */,
+				89DB84AD173DEC6300E6EEC5 /* RopeSprite.cpp */,
+				89DB84AE173DEC6400E6EEC5 /* RopeSprite.h */,
 			);
 			name = LevelEditor;
 			sourceTree = "<group>";
@@ -2554,6 +2559,7 @@
 				89DB84A2173D2A3A00E6EEC5 /* LevelFileHandler.cpp in Sources */,
 				89DB84A9173DE01600E6EEC5 /* LevelEditor.cpp in Sources */,
 				89DB84AC173DE58300E6EEC5 /* Constants.cpp in Sources */,
+				89DB84AF173DEC6400E6EEC5 /* RopeSprite.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

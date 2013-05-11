@@ -10,6 +10,10 @@
 #include "LevelFileHandler.h"
 #include "Constants.h"
 #include "HelloWorldScene.h"
+#include "PineappleModel.h"
+#include "RopeModel.h"
+#include "CoordinateHelper.h"
+#include "RopeSprite.h"
 
 
 #pragma mark - initialize
@@ -25,7 +29,7 @@ _ropeSpriteSheet(NULL)
 
 LevelEditor::~LevelEditor()
 {
-    
+    CC_SAFE_RELEASE_NULL(_ropeSpritesArray);
 }
 
 CCScene* LevelEditor::createWithLevel(LevelFileHelper *levelHelper)
@@ -113,5 +117,57 @@ void LevelEditor::saveLevel()
 
 void LevelEditor::drawLoadedLevel()
 {
+    // Draw pineapple
+    CCArray *pienapple = _fileHandler->_pineapples;
+    CCObject *obj;
+    CCARRAY_FOREACH(pienapple, obj)
+    {
+        PineappleModel *pineappleModel = (PineappleModel*)obj;
+        this->createPineappleSpriteFromModel(pineappleModel);
+    }
+
+    // Draw ropes
+    _ropeSpritesArray = CCArray::createWithCapacity(5);  //?
+    _ropeSpritesArray->retain();
+    CCARRAY_FOREACH(_fileHandler->_ropes, obj)
+    {
+        this->createRopeSpriteFromModel((RopeModel*)obj);
+    }
     
+}
+
+void LevelEditor::createRopeSpriteFromModel(RopeModel *rm)
+{
+    CCPoint anchorA;
+    if (rm->bodyAId == -1) {
+        
+        anchorA = CoordinateHelper::levelPositioinToScreenPosition(rm->achorA);
+    } else {
+        PineappleModel* pineappleWithID = _fileHandler->getPineappleWithID(rm->bodyAId);
+        anchorA = CoordinateHelper::levelPositioinToScreenPosition(pineappleWithID->position);
+    }
+    
+    CCPoint anchorB;
+    if (rm->bodyBId == -1) {
+        anchorB = CoordinateHelper::levelPositioinToScreenPosition(rm->achorB);
+    } else {
+        
+        PineappleModel* pineappleWithID = _fileHandler->getPineappleWithID(rm->bodyBId);
+        anchorB = CoordinateHelper::levelPositioinToScreenPosition(pineappleWithID->position);
+    }
+    
+
+    RopeSprite *ropeSprite = new RopeSprite(_ropeSpriteSheet,rm);
+    _ropeSpritesArray->addObject(ropeSprite);
+    ropeSprite->release();
+}
+
+void LevelEditor::createPineappleSpriteFromModel(PineappleModel *pm)
+{
+    CCSprite* pineappleSprite = CCSprite::createWithSpriteFrameName("pineapple.png");
+    
+    pineappleSprite->setTag(pm->id);
+    CCPoint position = CoordinateHelper::levelPositioinToScreenPosition(pm->position);
+    pineappleSprite->setPosition(position);
+    _pineapplesSpriteSheet->addChild(pineappleSprite);
 }

@@ -14,6 +14,8 @@
 USING_NS_CC;
 
 class LevelFileHelper;
+class PineappleModel;
+class RopeModel;
 
 class LevelEditor : public CCLayer
 {
@@ -29,7 +31,8 @@ public:
     void saveLevel();
     void playLevel();
     void drawLoadedLevel();
-    
+    void createPineappleSpriteFromModel(PineappleModel *pm);
+    void createRopeSpriteFromModel(RopeModel *rm);
 private:
     LevelEditor();
     
@@ -37,6 +40,8 @@ private:
     CCSprite                *_background;
     CCSpriteBatchNode       *_pineapplesSpriteSheet;
     CCSpriteBatchNode       *_ropeSpriteSheet;
+    
+    CCArray                 *_ropeSpritesArray;
     
 };
 
