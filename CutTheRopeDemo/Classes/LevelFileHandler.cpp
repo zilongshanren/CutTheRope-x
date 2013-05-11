@@ -46,7 +46,18 @@ void LevelFileHelper::loadLevel()
     _ropes = CCArray::create();
     _ropes->retain();
     
-    doc.LoadFile(_levelFile);
+    unsigned char* pBuffer = NULL;
+    unsigned long bufferSize = 0;
+    
+    //for android
+    pBuffer = CCFileUtils::sharedFileUtils()->getFileData(_levelFile, "r", &bufferSize);
+    
+    if (pBuffer)
+    {
+        doc.Parse((const char*)pBuffer);
+    }
+    
+//    doc.LoadFile(_levelFile);
     
     XMLElement *level = doc.RootElement();
     XMLElement *pineaplle = level->FirstChildElement("pineapple");

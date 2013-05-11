@@ -17,10 +17,10 @@
 using namespace cocos2d;
 using namespace CocosDenshion;
 
-#define kCuttingSound       "cut.caf"
-#define kBiteSound          "bite.caf"
-#define kSplashSound        "splash.caf"
-#define kBackgroundMusic    "CheeZeeJungle.caf"
+#define kCuttingSound       "cut.wav"
+#define kBiteSound          "bit.wav"
+#define kSplashSound        "splash.wav"
+#define kBackgroundMusic    "CheeZeeJungle.wav"
 
 #define PTM_RATIO 32
 
@@ -242,8 +242,9 @@ void HelloWorld::draw()
     ccGLEnableVertexAttribs( kCCVertexAttribFlag_Position );
 
     kmGLPushMatrix();
-
+#if DEBUG
     world->DrawDebugData();
+#endif
 
     kmGLPopMatrix();
 }

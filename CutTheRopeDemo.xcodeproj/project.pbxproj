@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		892C775B173E180200EE37BE /* PopupMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 892C7759173E180200EE37BE /* PopupMenu.cpp */; };
+		893EEBEE173F0D460090B989 /* splash.wav in Resources */ = {isa = PBXBuildFile; fileRef = 893EEBEA173F0D460090B989 /* splash.wav */; };
+		893EEBEF173F0D460090B989 /* cut.wav in Resources */ = {isa = PBXBuildFile; fileRef = 893EEBEB173F0D460090B989 /* cut.wav */; };
+		893EEBF0173F0D460090B989 /* CheeZeeJungle.wav in Resources */ = {isa = PBXBuildFile; fileRef = 893EEBEC173F0D460090B989 /* CheeZeeJungle.wav */; };
+		893EEBF1173F0D460090B989 /* bit.wav in Resources */ = {isa = PBXBuildFile; fileRef = 893EEBED173F0D460090B989 /* bit.wav */; };
 		897A213D173E82BF00BC5D24 /* LevelSelectionScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 897A213B173E82BF00BC5D24 /* LevelSelectionScene.cpp */; };
 		897A2140173E883500BC5D24 /* GameManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 897A213E173E883500BC5D24 /* GameManager.cpp */; };
 		89DB80BB173C8A2800E6EEC5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89DB80BA173C8A2800E6EEC5 /* QuartzCore.framework */; };
@@ -291,10 +295,6 @@
 		89DB847A173C8C8D00E6EEC5 /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89DB8470173C8C8D00E6EEC5 /* AppDelegate.cpp */; };
 		89DB847F173C8DD900E6EEC5 /* sd in Resources */ = {isa = PBXBuildFile; fileRef = 89DB847D173C8DD900E6EEC5 /* sd */; };
 		89DB8480173C8DD900E6EEC5 /* hd in Resources */ = {isa = PBXBuildFile; fileRef = 89DB847E173C8DD900E6EEC5 /* hd */; };
-		89DB8486173C8DE100E6EEC5 /* bite.caf in Resources */ = {isa = PBXBuildFile; fileRef = 89DB8482173C8DE100E6EEC5 /* bite.caf */; };
-		89DB8487173C8DE100E6EEC5 /* CheeZeeJungle.caf in Resources */ = {isa = PBXBuildFile; fileRef = 89DB8483173C8DE100E6EEC5 /* CheeZeeJungle.caf */; };
-		89DB8488173C8DE100E6EEC5 /* cut.caf in Resources */ = {isa = PBXBuildFile; fileRef = 89DB8484173C8DE100E6EEC5 /* cut.caf */; };
-		89DB8489173C8DE100E6EEC5 /* splash.caf in Resources */ = {isa = PBXBuildFile; fileRef = 89DB8485173C8DE100E6EEC5 /* splash.caf */; };
 		89DB848C173CCAC100E6EEC5 /* GLES-Render.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89DB848A173CCAC000E6EEC5 /* GLES-Render.cpp */; };
 		89DB8491173CE95800E6EEC5 /* MyContactListener.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89DB848F173CE95800E6EEC5 /* MyContactListener.cpp */; };
 		89DB8494173D242A00E6EEC5 /* CoordinateHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89DB8492173D242A00E6EEC5 /* CoordinateHelper.cpp */; };
@@ -312,6 +312,10 @@
 /* Begin PBXFileReference section */
 		892C7759173E180200EE37BE /* PopupMenu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PopupMenu.cpp; path = Classes/PopupMenu.cpp; sourceTree = "<group>"; };
 		892C775A173E180200EE37BE /* PopupMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PopupMenu.h; path = Classes/PopupMenu.h; sourceTree = "<group>"; };
+		893EEBEA173F0D460090B989 /* splash.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = splash.wav; sourceTree = "<group>"; };
+		893EEBEB173F0D460090B989 /* cut.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = cut.wav; sourceTree = "<group>"; };
+		893EEBEC173F0D460090B989 /* CheeZeeJungle.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = CheeZeeJungle.wav; sourceTree = "<group>"; };
+		893EEBED173F0D460090B989 /* bit.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = bit.wav; sourceTree = "<group>"; };
 		897A213B173E82BF00BC5D24 /* LevelSelectionScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LevelSelectionScene.cpp; path = Classes/LevelSelectionScene.cpp; sourceTree = "<group>"; };
 		897A213C173E82BF00BC5D24 /* LevelSelectionScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LevelSelectionScene.h; path = Classes/LevelSelectionScene.h; sourceTree = "<group>"; };
 		897A213E173E883500BC5D24 /* GameManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GameManager.cpp; path = Classes/GameManager.cpp; sourceTree = "<group>"; };
@@ -920,10 +924,6 @@
 		89DB8475173C8C8D00E6EEC5 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Classes/include/AppDelegate.h; sourceTree = "<group>"; };
 		89DB847D173C8DD900E6EEC5 /* sd */ = {isa = PBXFileReference; lastKnownFileType = folder; name = sd; path = Resources/sd; sourceTree = "<group>"; };
 		89DB847E173C8DD900E6EEC5 /* hd */ = {isa = PBXFileReference; lastKnownFileType = folder; name = hd; path = Resources/hd; sourceTree = "<group>"; };
-		89DB8482173C8DE100E6EEC5 /* bite.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = bite.caf; sourceTree = "<group>"; };
-		89DB8483173C8DE100E6EEC5 /* CheeZeeJungle.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = CheeZeeJungle.caf; sourceTree = "<group>"; };
-		89DB8484173C8DE100E6EEC5 /* cut.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = cut.caf; sourceTree = "<group>"; };
-		89DB8485173C8DE100E6EEC5 /* splash.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = splash.caf; sourceTree = "<group>"; };
 		89DB848A173CCAC000E6EEC5 /* GLES-Render.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "GLES-Render.cpp"; path = "Classes/src/GLES-Render.cpp"; sourceTree = "<group>"; };
 		89DB848B173CCAC000E6EEC5 /* GLES-Render.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GLES-Render.h"; path = "Classes/include/GLES-Render.h"; sourceTree = "<group>"; };
 		89DB848F173CE95800E6EEC5 /* MyContactListener.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MyContactListener.cpp; path = Classes/MyContactListener.cpp; sourceTree = "<group>"; };
@@ -2205,10 +2205,10 @@
 		89DB8481173C8DE100E6EEC5 /* sound */ = {
 			isa = PBXGroup;
 			children = (
-				89DB8482173C8DE100E6EEC5 /* bite.caf */,
-				89DB8483173C8DE100E6EEC5 /* CheeZeeJungle.caf */,
-				89DB8484173C8DE100E6EEC5 /* cut.caf */,
-				89DB8485173C8DE100E6EEC5 /* splash.caf */,
+				893EEBEA173F0D460090B989 /* splash.wav */,
+				893EEBEB173F0D460090B989 /* cut.wav */,
+				893EEBEC173F0D460090B989 /* CheeZeeJungle.wav */,
+				893EEBED173F0D460090B989 /* bit.wav */,
 			);
 			name = sound;
 			path = Resources/sound;
@@ -2310,12 +2310,12 @@
 				89DB8466173C8A3100E6EEC5 /* blocks.png in Resources */,
 				89DB847F173C8DD900E6EEC5 /* sd in Resources */,
 				89DB8480173C8DD900E6EEC5 /* hd in Resources */,
-				89DB8486173C8DE100E6EEC5 /* bite.caf in Resources */,
-				89DB8487173C8DE100E6EEC5 /* CheeZeeJungle.caf in Resources */,
-				89DB8488173C8DE100E6EEC5 /* cut.caf in Resources */,
-				89DB8489173C8DE100E6EEC5 /* splash.caf in Resources */,
 				89DB8496173D25CD00E6EEC5 /* level0.xml in Resources */,
 				89DB84A4173D32BD00E6EEC5 /* test.xml in Resources */,
+				893EEBEE173F0D460090B989 /* splash.wav in Resources */,
+				893EEBEF173F0D460090B989 /* cut.wav in Resources */,
+				893EEBF0173F0D460090B989 /* CheeZeeJungle.wav in Resources */,
+				893EEBF1173F0D460090B989 /* bit.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
