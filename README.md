@@ -1,14 +1,14 @@
-A CutTheRope like game demo made with cocos2d-x 2.1.3.
+A CutTheRope like game demo with a in-game level editor,  made with cocos2d-x 2.1.3.
 
-This game is portable and it can run both on ios and android.
+The game is portable and it can run both on ios and android.
 
-If you want to run it on android device, you can copy directory "android"
+If you want to run it on android device, you should copy directory "android"
 to your cocos2dx root directory, then you can run it on your android device.
 
 
 TODO:
 
-    1.Due to the like of cross-platform guesture regonizer, so I don't implement a "long press" guesture. I use two tap count for the long press event.
+    1.Due to the lack of a cross-platform guesture regonizer, so I don't implement a "long press" guesture. I use two tap count for the long press event.If you can confuse about this, you should read the follows tutorials first.
 
     
 
