@@ -30,6 +30,7 @@ bool AppDelegate::applicationDidFinishLaunching()
     CCDirector *pDirector = CCDirector::sharedDirector();
     pDirector->setOpenGLView(CCEGLView::sharedOpenGLView());
     
+    
     //specify resource loading strategy
     CCSize screenSize = CCDirector::sharedDirector()->getWinSizeInPixels();
     

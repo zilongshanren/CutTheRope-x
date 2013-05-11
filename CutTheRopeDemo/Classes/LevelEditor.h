@@ -10,6 +10,7 @@
 #define __CutTheRopeDemo__LevelEditor__
 
 #include "cocos2d.h"
+#include "PopupMenu.h"
 
 USING_NS_CC;
 
@@ -17,7 +18,7 @@ class LevelFileHelper;
 class PineappleModel;
 class RopeModel;
 
-class LevelEditor : public CCLayer
+class LevelEditor : public CCLayer, public PopupMenuDelegate
 {
 public:
     LevelEditor(LevelFileHelper *levelHelper);
@@ -26,6 +27,14 @@ public:
     
     virtual bool init();
     
+    virtual void ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent);
+    virtual void ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent);
+    virtual void ccTouchesEnded(CCSet *pTouches, CCEvent *pEvent);
+//    virtual void ccTouchesCancelled(CCSet *pTouches, CCEvent *pEvent);
+    
+    virtual void createPineappleAt(CCPoint position);
+    virtual void createRopeAt(CCPoint position);
+    
     void createMenu();
     void resetLevel();
     void saveLevel();
@@ -33,6 +42,8 @@ public:
     void drawLoadedLevel();
     void createPineappleSpriteFromModel(PineappleModel *pm);
     void createRopeSpriteFromModel(RopeModel *rm);
+    
+    void togglePopupMenu(CCPoint touchLocation);
 private:
     LevelEditor();
     
@@ -42,7 +53,7 @@ private:
     CCSpriteBatchNode       *_ropeSpriteSheet;
     
     CCArray                 *_ropeSpritesArray;
-    
+    PopupMenu               *_popupMenu;
 };
 
 #endif /* defined(__CutTheRopeDemo__LevelEditor__) */

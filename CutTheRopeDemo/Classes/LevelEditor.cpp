@@ -22,7 +22,9 @@ LevelEditor::LevelEditor(LevelFileHelper *levelHelper)
 :_fileHandler(levelHelper),
 _background(NULL),
 _pineapplesSpriteSheet(NULL),
-_ropeSpriteSheet(NULL)
+_ropeSpriteSheet(NULL),
+_popupMenu(NULL),
+_ropeSpritesArray(NULL)
 {
     
 }
@@ -30,6 +32,7 @@ _ropeSpriteSheet(NULL)
 LevelEditor::~LevelEditor()
 {
     CC_SAFE_RELEASE_NULL(_ropeSpritesArray);
+    CC_SAFE_DELETE(_popupMenu);
 }
 
 CCScene* LevelEditor::createWithLevel(LevelFileHelper *levelHelper)
@@ -70,6 +73,8 @@ bool LevelEditor::init()
         this->addChild(_ropeSpriteSheet);
         
         this->drawLoadedLevel();
+        
+        setTouchEnabled(true);
         
         bRet = true;
     } while (0);
@@ -171,3 +176,61 @@ void LevelEditor::createPineappleSpriteFromModel(PineappleModel *pm)
     pineappleSprite->setPosition(position);
     _pineapplesSpriteSheet->addChild(pineappleSprite);
 }
+
+#pragma mark - touches handler
+void LevelEditor::ccTouchesBegan(cocos2d::CCSet *pTouches, cocos2d::CCEvent *pEvent)
+{
+    CCLOG("touch began count = %d", pTouches->count());
+    //如果4个手指同时按下，则弹出菜单，取代长按的手势
+    CCTouch *touch = (CCTouch*)pTouches->anyObject();
+    CCPoint touchLocation = touch->getLocationInView();
+    touchLocation = CCDirector::sharedDirector()->convertToGL(touchLocation);
+    
+    this->togglePopupMenu(touchLocation);
+    
+}
+
+void LevelEditor::ccTouchesMoved(cocos2d::CCSet *pTouches, cocos2d::CCEvent *pEvent)
+{
+    CCLOG("touch move count = %d", pTouches->count());
+
+}
+
+void LevelEditor::ccTouchesEnded(cocos2d::CCSet *pTouches, cocos2d::CCEvent *pEvent)
+{
+    CCLOG("touch end count = %d", pTouches->count());
+
+}
+
+void LevelEditor::togglePopupMenu(cocos2d::CCPoint touchLocation)
+{
+    if (!_popupMenu) {
+        _popupMenu = new PopupMenu(this);
+        _popupMenu->delegate = this;
+    }
+    
+    if (_popupMenu->isEnabled()) {
+        _popupMenu->setMenuEnabled(false);
+    }else{
+        _popupMenu->setPopupPositioin(touchLocation);
+        _popupMenu->setMenuEnabled(true);
+        if (_pineapplesSpriteSheet->getChildren()->count() < 1) {
+            _popupMenu->setRopeItemEnabled(false);
+        }
+    }
+}
+
+#pragma mark - PopupMenuDelegate
+void LevelEditor::createPineappleAt(cocos2d::CCPoint position)
+{
+    CCLOG("createPineappleAt");
+    _popupMenu->setMenuEnabled(false);
+}
+
+void LevelEditor::createRopeAt(cocos2d::CCPoint position)
+{
+    CCLOG("createRopeAt");
+    _popupMenu->setMenuEnabled(false);
+}
+
+

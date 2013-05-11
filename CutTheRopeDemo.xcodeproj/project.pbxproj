@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		892C775B173E180200EE37BE /* PopupMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 892C7759173E180200EE37BE /* PopupMenu.cpp */; };
 		89DB80BB173C8A2800E6EEC5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89DB80BA173C8A2800E6EEC5 /* QuartzCore.framework */; };
 		89DB80BD173C8A2800E6EEC5 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89DB80BC173C8A2800E6EEC5 /* OpenGLES.framework */; };
 		89DB80BF173C8A2800E6EEC5 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89DB80BE173C8A2800E6EEC5 /* OpenAL.framework */; };
@@ -307,6 +308,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		892C7759173E180200EE37BE /* PopupMenu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PopupMenu.cpp; path = Classes/PopupMenu.cpp; sourceTree = "<group>"; };
+		892C775A173E180200EE37BE /* PopupMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PopupMenu.h; path = Classes/PopupMenu.h; sourceTree = "<group>"; };
 		89DB80B7173C8A2800E6EEC5 /* CutTheRopeDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CutTheRopeDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		89DB80BA173C8A2800E6EEC5 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		89DB80BC173C8A2800E6EEC5 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -960,6 +963,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		892C7757173E17DD00EE37BE /* default */ = {
+			isa = PBXGroup;
+			children = (
+				89DB848A173CCAC000E6EEC5 /* GLES-Render.cpp */,
+				89DB848B173CCAC000E6EEC5 /* GLES-Render.h */,
+				89DB8470173C8C8D00E6EEC5 /* AppDelegate.cpp */,
+				89DB8475173C8C8D00E6EEC5 /* AppDelegate.h */,
+			);
+			name = default;
+			sourceTree = "<group>";
+		};
+		892C7758173E17E900EE37BE /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				89DB848F173CE95800E6EEC5 /* MyContactListener.cpp */,
+				89DB8490173CE95800E6EEC5 /* MyContactListener.h */,
+				89DB8492173D242A00E6EEC5 /* CoordinateHelper.cpp */,
+				89DB8493173D242A00E6EEC5 /* CoordinateHelper.h */,
+			);
+			name = Utils;
+			sourceTree = "<group>";
+		};
 		89DB80AE173C8A2800E6EEC5 = {
 			isa = PBXGroup;
 			children = (
@@ -2123,18 +2148,12 @@
 		89DB845E173C8A3100E6EEC5 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				892C7758173E17E900EE37BE /* Utils */,
+				892C7757173E17DD00EE37BE /* default */,
 				89DB84A5173DD62D00E6EEC5 /* model */,
-				89DB848A173CCAC000E6EEC5 /* GLES-Render.cpp */,
-				89DB848B173CCAC000E6EEC5 /* GLES-Render.h */,
 				89DB847B173C8C9100E6EEC5 /* vrope-x */,
 				89DB846F173C8C8D00E6EEC5 /* HelloWorldScene.cpp */,
 				89DB8474173C8C8D00E6EEC5 /* HelloWorldScene.h */,
-				89DB8470173C8C8D00E6EEC5 /* AppDelegate.cpp */,
-				89DB8475173C8C8D00E6EEC5 /* AppDelegate.h */,
-				89DB848F173CE95800E6EEC5 /* MyContactListener.cpp */,
-				89DB8490173CE95800E6EEC5 /* MyContactListener.h */,
-				89DB8492173D242A00E6EEC5 /* CoordinateHelper.cpp */,
-				89DB8493173D242A00E6EEC5 /* CoordinateHelper.h */,
 				89DB84A6173DD64000E6EEC5 /* LevelEditor */,
 				89DB84AA173DE58300E6EEC5 /* Constants.cpp */,
 				89DB84AB173DE58300E6EEC5 /* Constants.h */,
@@ -2209,6 +2228,8 @@
 				89DB84A8173DE01600E6EEC5 /* LevelEditor.h */,
 				89DB84AD173DEC6300E6EEC5 /* RopeSprite.cpp */,
 				89DB84AE173DEC6400E6EEC5 /* RopeSprite.h */,
+				892C7759173E180200EE37BE /* PopupMenu.cpp */,
+				892C775A173E180200EE37BE /* PopupMenu.h */,
 			);
 			name = LevelEditor;
 			sourceTree = "<group>";
@@ -2560,6 +2581,7 @@
 				89DB84A9173DE01600E6EEC5 /* LevelEditor.cpp in Sources */,
 				89DB84AC173DE58300E6EEC5 /* Constants.cpp in Sources */,
 				89DB84AF173DEC6400E6EEC5 /* RopeSprite.cpp in Sources */,
+				892C775B173E180200EE37BE /* PopupMenu.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
