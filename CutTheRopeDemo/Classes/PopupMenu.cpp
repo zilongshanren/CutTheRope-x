@@ -51,7 +51,69 @@ void PopupMenu::setPopupPositioin(CCPoint position)
     CCPoint anchorPoint = ccp(0.5f, 0.0f);
     CCPoint menuPosition = ccp(defaultBackgroundSize.width/2, defaultBackgroundSize.height*0.7f);
     
-    // TODO: adjust anchorPoint and orientation of menu, to make it fit the screen
+    // Menu horizontal alignment
+    CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+    const char* horizontalAlignment;
+    if (position.x < defaultBackgroundSize.width/2) {
+        // left
+        horizontalAlignment = "left";
+        anchorPoint.x = 0.0f;
+        _menu->alignItemsVerticallyWithPadding(padding);
+        menuPosition.x = defaultBackgroundSize.height * 0.7f;
+        menuPosition.y = defaultBackgroundSize.width * 0.5f;
+    } else if (winSize.width-position.x < defaultBackgroundSize.width/2) {
+        // right
+        horizontalAlignment = "right";
+        anchorPoint.x = 1.0f;
+        _menu->alignItemsVerticallyWithPadding(padding);
+        menuPosition.x = defaultBackgroundSize.height * 0.3f;
+        menuPosition.y = defaultBackgroundSize.width * 0.5f;
+    } else {
+        // center
+        horizontalAlignment = "center";
+        _menu->alignItemsHorizontallyWithPadding(padding);
+    }
+    
+    // Menu vertical alignment
+    const char* verticalAlignment;
+    if (position.y < defaultBackgroundSize.height) {
+        // bottom
+        verticalAlignment = "bottom";
+        if (strcmp(horizontalAlignment, "center") == 0) {
+            anchorPoint.y = 0.0f;
+        } else {
+            anchorPoint.y = 0.25f;
+        }
+    } else if (winSize.height - position.y < defaultBackgroundSize.height) {
+        // top
+        verticalAlignment = "top";
+        if (strcmp(horizontalAlignment, "center") == 0) {
+            anchorPoint.y = 1.0f;
+            menuPosition.y = defaultBackgroundSize.height*0.3f;
+        } else {
+            anchorPoint.y = 0.75f;
+        }
+    } else {
+        // middle
+        verticalAlignment = "middle";
+        if (strcmp(horizontalAlignment, "center") == 0) {
+            anchorPoint.y = 0.0f;
+        } else {
+            anchorPoint.y = 0.5f;
+        }
+    }
+    
+    // Draw the menu
+//    NSString* filename = [NSString stringWithFormat: @"menu-%@-%@.png", verticalAlignment, horizontalAlignment];
+    CCString *filesname = CCString::createWithFormat("menu-%s-%s.png",verticalAlignment,horizontalAlignment);
+
+    CCTexture2D* tex = CCTextureCache::sharedTextureCache()->addImage(filesname->getCString());
+    if (!tex) {
+        tex = CCTextureCache::sharedTextureCache()->addImage("menu.png");
+    }
+    _background->setTexture(tex);
+    _background->setTextureRect(CCRectMake(0, 0, tex->getContentSize().width, tex->getContentSize().height));
+   
     
     _background->setAnchorPoint(anchorPoint);
     _background->setPosition(position);
