@@ -76,3 +76,43 @@ void RopeSprite::updateRope()
     _ropeSprite->setRotation(-1 * CC_RADIANS_TO_DEGREES(angle));
 }
 
+
+float RopeSprite::distanceToPoint(cocos2d::CCPoint pt)
+{
+    CCPoint anchorA = CoordinateHelper::levelPositioinToScreenPosition(_ropeModel->achorA);
+    CCPoint anchorB = CoordinateHelper::levelPositioinToScreenPosition(_ropeModel->achorB);
+    float deltaX = anchorA.x-anchorB.x;
+    float deltaY = anchorA.y-anchorB.y;
+    float distance;
+    if (deltaX == 0) {
+        distance = fabs(anchorA.x - pt.x);
+    } else if (deltaY == 0) {
+        distance = fabs(anchorA.y - pt.y);
+    } else {
+        // calculate slope by dividing y-coordinate distance with x-coordinate distance
+        float slope = deltaY/deltaX;
+        // calculate y-intercept of rope t = y-m*x
+        float yIntercept = anchorA.y - anchorA.x * slope;
+        // construct line that is orthographic to rope and goes through point, we want to calculate distance for
+        float slopeOrthogonal = -1/slope;
+        // position.y = slopeOrthogonal * position.x + yInterceptOrthogonal => solve for yInterceptOrthogonal
+        float yInterceptOrthogonal = pt.y - slopeOrthogonal * pt.x;
+        // calculate interception between rope and orthogonal line
+        float x = (yInterceptOrthogonal - yIntercept) / (slope - slopeOrthogonal);
+        float y = slope * x + yIntercept;
+        
+        distance = ccpDistance(pt, CCPointMake(x, y));
+    }
+    return distance;
+}
+
+CCRect RopeSprite::getBoundingBox()
+{
+    return _ropeSprite->boundingBox();
+}
+
+
+void RopeSprite::cleanupSprite()
+{
+    _ropeSprite->removeFromParentAndCleanup(true);
+}

@@ -34,6 +34,9 @@ public:
     
     void updateRope();
     
+    float distanceToPoint(CCPoint pt);
+    CCRect getBoundingBox();
+    void cleanupSprite();
 private:
     CCSprite    *_ropeSprite;
     RopeModel   *_ropeModel;

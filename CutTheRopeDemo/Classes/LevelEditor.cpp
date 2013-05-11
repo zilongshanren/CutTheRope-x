@@ -202,12 +202,21 @@ void LevelEditor::ccTouchesBegan(cocos2d::CCSet *pTouches, cocos2d::CCEvent *pEv
             break;
     }
     
+    if (pTouches->count() == 2) {
+        this->removeRopeAtPosition(touchLocation);
+    }
+        
+}
+
+
+void LevelEditor::longPress(cocos2d::CCPoint pt)
+{
+    this->removeRopeAtPosition(pt);
 }
 
 void LevelEditor::ccTouchesMoved(cocos2d::CCSet *pTouches, cocos2d::CCEvent *pEvent)
 {
     CCLOG("touch move count = %d", pTouches->count());
-
 }
 
 void LevelEditor::ccTouchesEnded(cocos2d::CCSet *pTouches, cocos2d::CCEvent *pEvent)
@@ -348,5 +357,33 @@ void LevelEditor::selectSecondAnchorPoint(cocos2d::CCPoint touchLocation)
     _fileHandler->addRopeFromModel(_newRope);
     
     this->setMode(kEditMode);
+}
+
+RopeSprite* LevelEditor::ropeAtPosition(cocos2d::CCPoint position)
+{
+    float minDistanceToRope = 5;
+    RopeSprite* closestRope = NULL ;
+    CCObject *obj;
+    CCARRAY_FOREACH(_ropeSpritesArray, obj)
+    {
+        RopeSprite *ropeSprite = (RopeSprite*)obj;
+        if (ropeSprite->getBoundingBox().containsPoint(position)
+            && ropeSprite->distanceToPoint(position)) {
+            closestRope = ropeSprite;
+            minDistanceToRope = ropeSprite->distanceToPoint(position);
+        }
+    }
+    return closestRope;
+}
+
+void LevelEditor::removeRopeAtPosition(cocos2d::CCPoint position)
+{
+    RopeSprite *selectedRope = this->ropeAtPosition(position);
+    if (selectedRope) {
+        selectedRope->cleanupSprite();
+        _fileHandler->removeRopeWithID(selectedRope->getID());
+        _ropeSpritesArray->removeObject(selectedRope);
+        return;
+    }
 }
 

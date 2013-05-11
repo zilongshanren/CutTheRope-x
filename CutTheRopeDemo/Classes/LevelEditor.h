@@ -11,6 +11,7 @@
 
 #include "cocos2d.h"
 #include "PopupMenu.h"
+#include "RopeSprite.h"
 
 USING_NS_CC;
 
@@ -57,6 +58,11 @@ public:
     void selectFirstAnchorPoint(CCPoint touchLocation);
     void selectSecondAnchorPoint(CCPoint touchLocation);
     
+    
+    RopeSprite *ropeAtPosition(CCPoint position);
+    void removeRopeAtPosition(CCPoint position);
+    
+    void longPress(CCPoint pt);
 private:
     LevelEditor();
     
@@ -70,6 +76,7 @@ private:
     
     editorMode              _mode;
     RopeModel*              _newRope;
+    
 };
 
 #endif /* defined(__CutTheRopeDemo__LevelEditor__) */

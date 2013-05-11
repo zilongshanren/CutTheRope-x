@@ -209,3 +209,18 @@ void LevelFileHelper::addRopeFromModel(RopeModel *rm)
     }
     _ropes->addObject(rm);
 }
+
+void LevelFileHelper::removeRopeWithID(int id)
+{
+    RopeModel* ropeToBeRemoved;
+    CCObject *obj;
+    CCARRAY_FOREACH(_ropes, obj)
+    {
+        RopeModel *rope = (RopeModel*)obj;
+        if (rope->id == id) {
+            ropeToBeRemoved = rope;
+            break;
+        }
+    }
+    _ropes->removeObject(ropeToBeRemoved);
+}
