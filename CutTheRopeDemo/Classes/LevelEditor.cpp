@@ -16,6 +16,7 @@
 #include "RopeSprite.h"
 
 
+
 #pragma mark - initialize
 
 LevelEditor::LevelEditor(LevelFileHelper *levelHelper)
@@ -24,7 +25,9 @@ _background(NULL),
 _pineapplesSpriteSheet(NULL),
 _ropeSpriteSheet(NULL),
 _popupMenu(NULL),
-_ropeSpritesArray(NULL)
+_ropeSpritesArray(NULL),
+_newRope(NULL),
+_mode(kEditMode)
 {
     
 }
@@ -33,6 +36,7 @@ LevelEditor::~LevelEditor()
 {
     CC_SAFE_RELEASE_NULL(_ropeSpritesArray);
     CC_SAFE_DELETE(_popupMenu);
+    CC_SAFE_DELETE(_newRope);
 }
 
 CCScene* LevelEditor::createWithLevel(LevelFileHelper *levelHelper)
@@ -186,7 +190,17 @@ void LevelEditor::ccTouchesBegan(cocos2d::CCSet *pTouches, cocos2d::CCEvent *pEv
     CCPoint touchLocation = touch->getLocationInView();
     touchLocation = CCDirector::sharedDirector()->convertToGL(touchLocation);
     
-    this->togglePopupMenu(touchLocation);
+    switch (_mode) {
+        case kEditMode:
+            this->togglePopupMenu(touchLocation);
+            break;
+        case kRopeAnchorPineappleMode:
+            this->selectFirstAnchorPoint(touchLocation);
+            break;
+        case kRopeAnchorAnyMode:
+            this->selectSecondAnchorPoint(touchLocation);
+            break;
+    }
     
 }
 
@@ -239,7 +253,100 @@ void LevelEditor::createPineappleAt(cocos2d::CCPoint position)
 void LevelEditor::createRopeAt(cocos2d::CCPoint position)
 {
     CCLOG("createRopeAt");
+    this->setMode(kRopeAnchorPineappleMode);
+    _newRope = new RopeModel;
     _popupMenu->setMenuEnabled(false);
 }
 
+#pragma mark - others
+void LevelEditor::setMode(editorMode newMode)
+{
+    _mode = newMode;
+    CCObject *obj;
+
+    
+    switch (_mode) {
+        case kRopeAnchorPineappleMode:
+            _background->setColor(kDefaultDisabledColor);
+            
+            CCARRAY_FOREACH(_pineapplesSpriteSheet->getChildren(), obj)
+            {
+                CCSprite *pineapple = (CCSprite*)obj;
+                pineapple->setColor(kDefaultSelectableColor);
+            }
+            
+            
+            break;
+        case kRopeAnchorAnyMode:
+            _background->setColor(kDefaultSelectableColor);
+            
+            CCARRAY_FOREACH(_pineapplesSpriteSheet->getChildren(), obj)
+            {
+                CCSprite *pineapple = (CCSprite*)obj;
+                if (pineapple->getTag() == _newRope->bodyAId) {
+                    pineapple->setColor(kDefaultDisabledColor);
+                }else{
+                    pineapple->setColor(kDefaultSelectableColor);
+                }
+            }
+            break;
+        case kEditMode:
+        default:
+            _background->setColor(kDefaultBackgroundColor) ;
+            CCARRAY_FOREACH(_pineapplesSpriteSheet->getChildren(), obj)
+            {
+                CCSprite *pineapple = (CCSprite*)obj;
+                pineapple->setColor(ccc3(255, 255, 255));
+            }
+            
+            break;
+    }
+}
+
+CCSprite* LevelEditor::pineappleAtPosition(cocos2d::CCPoint pt)
+{
+    CCObject *obj;
+    CCARRAY_FOREACH(_pineapplesSpriteSheet->getChildren(), obj)
+    {
+        CCSprite *pineapple = (CCSprite*)obj;
+        if (pineapple->boundingBox().containsPoint(pt)) {
+            return pineapple;
+        }
+    }
+    return NULL;
+}
+
+void LevelEditor::selectFirstAnchorPoint(cocos2d::CCPoint touchLocation)
+{
+    // if user tapped on pineapple set it as anchor of the new rope
+    CCSprite *tappedPineapple = this->pineappleAtPosition(touchLocation);
+    
+    if (tappedPineapple != NULL) {
+        _newRope->achorA = CoordinateHelper::screenPositionToLevelPosition(tappedPineapple->getPosition());
+        _newRope->bodyAId = tappedPineapple->getTag();
+        this->setMode(kRopeAnchorAnyMode);
+    }
+}
+
+
+void LevelEditor::selectSecondAnchorPoint(cocos2d::CCPoint touchLocation)
+{
+    // set second end of rope, can be either background or other pinapple, but not same pinapple as first one
+
+    CCSprite *tappedPineapple = this->pineappleAtPosition(touchLocation);
+    if (tappedPineapple && tappedPineapple->getTag() != _newRope->bodyAId) {
+        _newRope->achorB = CoordinateHelper::screenPositionToLevelPosition(tappedPineapple->getPosition());
+        _newRope->bodyBId = tappedPineapple->getTag();
+    }
+    
+    if (!tappedPineapple) {
+        _newRope->achorB = CoordinateHelper::screenPositionToLevelPosition(touchLocation);
+        _newRope->bodyBId = -1;
+    }
+    
+    this->createRopeSpriteFromModel(_newRope);
+    _fileHandler->addRopeFromModel(_newRope);
+    
+    this->setMode(kEditMode);
+}
 

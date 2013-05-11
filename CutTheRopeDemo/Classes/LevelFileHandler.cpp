@@ -198,3 +198,14 @@ PineappleModel* LevelFileHelper::addPineappleAt(cocos2d::CCPoint pt)
     return newPineapple;
 }
 
+
+void LevelFileHelper::addRopeFromModel(RopeModel *rm)
+{
+    this->sortArrayById(_ropes);
+    
+    if (!rm->id) {
+        int firstUnusedID = this->findUnusedIdInArray(_ropes);
+        rm->id = firstUnusedID;
+    }
+    _ropes->addObject(rm);
+}

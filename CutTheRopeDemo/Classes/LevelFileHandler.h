@@ -32,6 +32,7 @@ public:
     int findUnusedIdInArray(CCArray *array);
     
     PineappleModel* addPineappleAt(CCPoint pt);
+    void addRopeFromModel(RopeModel *rm);
     
 private:
     LevelFileHelper();

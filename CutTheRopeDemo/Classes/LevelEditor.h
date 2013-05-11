@@ -14,6 +14,12 @@
 
 USING_NS_CC;
 
+enum {
+    kEditMode,
+    kRopeAnchorPineappleMode,
+    kRopeAnchorAnyMode
+} typedef editorMode;
+
 class LevelFileHelper;
 class PineappleModel;
 class RopeModel;
@@ -45,6 +51,12 @@ public:
     
     
     void togglePopupMenu(CCPoint touchLocation);
+    
+    void setMode(editorMode mode);
+    CCSprite *pineappleAtPosition(CCPoint pt);
+    void selectFirstAnchorPoint(CCPoint touchLocation);
+    void selectSecondAnchorPoint(CCPoint touchLocation);
+    
 private:
     LevelEditor();
     
@@ -55,6 +67,9 @@ private:
     
     CCArray                 *_ropeSpritesArray;
     PopupMenu               *_popupMenu;
+    
+    editorMode              _mode;
+    RopeModel*              _newRope;
 };
 
 #endif /* defined(__CutTheRopeDemo__LevelEditor__) */
