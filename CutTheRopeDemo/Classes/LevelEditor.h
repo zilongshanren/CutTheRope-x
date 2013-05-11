@@ -61,6 +61,8 @@ public:
     
     RopeSprite *ropeAtPosition(CCPoint position);
     void removeRopeAtPosition(CCPoint position);
+    void removePineappleAtPosition(CCPoint positioin);
+    CCArray* getAllRopesConnectedToPineappleWithID(int pineappleID);
     
     void longPress(CCPoint pt);
 private:

@@ -224,3 +224,18 @@ void LevelFileHelper::removeRopeWithID(int id)
     }
     _ropes->removeObject(ropeToBeRemoved);
 }
+
+void LevelFileHelper::removePineappleWithID(int id)
+{
+    PineappleModel* pineappleToBeRemoved;
+    CCObject *obj;
+    CCARRAY_FOREACH(_pineapples, obj)
+    {
+        PineappleModel *pineapple = (PineappleModel*)obj;
+        if (pineapple->id == id) {
+            pineappleToBeRemoved = pineapple;
+            break;
+        }
+    }
+    _pineapples->removeObject(pineappleToBeRemoved);
+}

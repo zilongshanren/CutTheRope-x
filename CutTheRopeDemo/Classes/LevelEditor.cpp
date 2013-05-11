@@ -190,20 +190,22 @@ void LevelEditor::ccTouchesBegan(cocos2d::CCSet *pTouches, cocos2d::CCEvent *pEv
     CCPoint touchLocation = touch->getLocationInView();
     touchLocation = CCDirector::sharedDirector()->convertToGL(touchLocation);
     
-    switch (_mode) {
-        case kEditMode:
-            this->togglePopupMenu(touchLocation);
-            break;
-        case kRopeAnchorPineappleMode:
-            this->selectFirstAnchorPoint(touchLocation);
-            break;
-        case kRopeAnchorAnyMode:
-            this->selectSecondAnchorPoint(touchLocation);
-            break;
-    }
+    
     
     if (pTouches->count() == 2) {
-        this->removeRopeAtPosition(touchLocation);
+        this->longPress(touchLocation);
+    }else{
+        switch (_mode) {
+            case kEditMode:
+                this->togglePopupMenu(touchLocation);
+                break;
+            case kRopeAnchorPineappleMode:
+                this->selectFirstAnchorPoint(touchLocation);
+                break;
+            case kRopeAnchorAnyMode:
+                this->selectSecondAnchorPoint(touchLocation);
+                break;
+        }
     }
         
 }
@@ -212,6 +214,7 @@ void LevelEditor::ccTouchesBegan(cocos2d::CCSet *pTouches, cocos2d::CCEvent *pEv
 void LevelEditor::longPress(cocos2d::CCPoint pt)
 {
     this->removeRopeAtPosition(pt);
+    this->removePineappleAtPosition(pt);
 }
 
 void LevelEditor::ccTouchesMoved(cocos2d::CCSet *pTouches, cocos2d::CCEvent *pEvent)
@@ -385,5 +388,45 @@ void LevelEditor::removeRopeAtPosition(cocos2d::CCPoint position)
         _ropeSpritesArray->removeObject(selectedRope);
         return;
     }
+}
+
+void LevelEditor::removePineappleAtPosition(cocos2d::CCPoint positioin)
+{
+    CCSprite* selectedPineapple = this->pineappleAtPosition(positioin);
+    if (selectedPineapple != NULL) {
+        _fileHandler->removePineappleWithID(selectedPineapple->getTag());
+        
+        CCArray *connectedRopesToBeRemoved = this->getAllRopesConnectedToPineappleWithID(selectedPineapple->getTag());
+        
+        CCObject *obj;
+        CCARRAY_FOREACH(connectedRopesToBeRemoved, obj)
+        {
+            RopeSprite *rope = (RopeSprite*)obj;
+            _fileHandler->removeRopeWithID(rope->getID());
+            rope->cleanupSprite();
+            _ropeSpritesArray->removeObject(rope);
+        }
+        
+        selectedPineapple->removeFromParentAndCleanup(true);
+        
+    }
+}
+
+CCArray* LevelEditor::getAllRopesConnectedToPineappleWithID(int pineappleID)
+{
+    CCArray *tempRopes = CCArray::create();
+    CCObject *obj;
+    CCARRAY_FOREACH(_ropeSpritesArray, obj)
+    {
+        RopeSprite* rope = (RopeSprite*)obj;
+        int bodyAID = rope->getBodyAID();
+        int bodyBID = rope->getBodyBID();
+        
+        if (pineappleID == bodyAID || pineappleID == bodyBID) {
+            tempRopes->addObject(rope);
+        }
+    }
+    
+    return tempRopes;
 }
 

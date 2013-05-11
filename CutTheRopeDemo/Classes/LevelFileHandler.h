@@ -34,6 +34,7 @@ public:
     PineappleModel* addPineappleAt(CCPoint pt);
     void addRopeFromModel(RopeModel *rm);
     void removeRopeWithID(int id);
+    void removePineappleWithID(int id);
     
 private:
     LevelFileHelper();
