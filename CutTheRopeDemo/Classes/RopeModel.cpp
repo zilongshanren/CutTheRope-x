@@ -7,8 +7,8 @@
 //
 
 #include "RopeModel.h"
+#include "Constants.h"
 
-#define kDefaultSagity  1.0
 
 RopeModel::RopeModel()
 :bodyAId(-1),

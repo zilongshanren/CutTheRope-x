@@ -11,8 +11,6 @@
 
 #include "AbstractModel.h"
 
-#define kDefaultDamping 0.3
-
 
 class PineappleModel : public AbstractModel
 {

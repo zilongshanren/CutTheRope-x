@@ -10,6 +10,7 @@
 #include "tinyxml2.h"
 #include "PineappleModel.h"
 #include "RopeModel.h"
+#include "Constants.h"
 
 using namespace tinyxml2;
 

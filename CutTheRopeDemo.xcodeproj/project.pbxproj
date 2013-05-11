@@ -301,6 +301,8 @@
 		89DB849F173D297D00E6EEC5 /* RopeModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89DB849D173D297D00E6EEC5 /* RopeModel.cpp */; };
 		89DB84A2173D2A3A00E6EEC5 /* LevelFileHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89DB84A0173D2A3A00E6EEC5 /* LevelFileHandler.cpp */; };
 		89DB84A4173D32BD00E6EEC5 /* test.xml in Resources */ = {isa = PBXBuildFile; fileRef = 89DB84A3173D32BD00E6EEC5 /* test.xml */; };
+		89DB84A9173DE01600E6EEC5 /* LevelEditor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89DB84A7173DE01600E6EEC5 /* LevelEditor.cpp */; };
+		89DB84AC173DE58300E6EEC5 /* Constants.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89DB84AA173DE58300E6EEC5 /* Constants.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -928,6 +930,10 @@
 		89DB84A0173D2A3A00E6EEC5 /* LevelFileHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LevelFileHandler.cpp; path = Classes/LevelFileHandler.cpp; sourceTree = "<group>"; };
 		89DB84A1173D2A3A00E6EEC5 /* LevelFileHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LevelFileHandler.h; path = Classes/LevelFileHandler.h; sourceTree = "<group>"; };
 		89DB84A3173D32BD00E6EEC5 /* test.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = test.xml; path = Resources/test.xml; sourceTree = "<group>"; };
+		89DB84A7173DE01600E6EEC5 /* LevelEditor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LevelEditor.cpp; path = Classes/LevelEditor.cpp; sourceTree = "<group>"; };
+		89DB84A8173DE01600E6EEC5 /* LevelEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LevelEditor.h; path = Classes/LevelEditor.h; sourceTree = "<group>"; };
+		89DB84AA173DE58300E6EEC5 /* Constants.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Constants.cpp; path = Classes/Constants.cpp; sourceTree = "<group>"; };
+		89DB84AB173DE58300E6EEC5 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Constants.h; path = Classes/Constants.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2127,6 +2133,8 @@
 				89DB8492173D242A00E6EEC5 /* CoordinateHelper.cpp */,
 				89DB8493173D242A00E6EEC5 /* CoordinateHelper.h */,
 				89DB84A6173DD64000E6EEC5 /* LevelEditor */,
+				89DB84AA173DE58300E6EEC5 /* Constants.cpp */,
+				89DB84AB173DE58300E6EEC5 /* Constants.h */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -2194,6 +2202,8 @@
 			children = (
 				89DB84A0173D2A3A00E6EEC5 /* LevelFileHandler.cpp */,
 				89DB84A1173D2A3A00E6EEC5 /* LevelFileHandler.h */,
+				89DB84A7173DE01600E6EEC5 /* LevelEditor.cpp */,
+				89DB84A8173DE01600E6EEC5 /* LevelEditor.h */,
 			);
 			name = LevelEditor;
 			sourceTree = "<group>";
@@ -2542,6 +2552,8 @@
 				89DB849C173D288600E6EEC5 /* PineappleModel.cpp in Sources */,
 				89DB849F173D297D00E6EEC5 /* RopeModel.cpp in Sources */,
 				89DB84A2173D2A3A00E6EEC5 /* LevelFileHandler.cpp in Sources */,
+				89DB84A9173DE01600E6EEC5 /* LevelEditor.cpp in Sources */,
+				89DB84AC173DE58300E6EEC5 /* Constants.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2624,6 +2636,7 @@
 				GCC_PREFIX_HEADER = CutTheRopeDemo/Prefix.pch;
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
 				INFOPLIST_FILE = CutTheRopeDemo/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/CutTheRopeDemo/libs/cocos2dx/platform/third_party/ios/libraries\"",
@@ -2648,6 +2661,7 @@
 				GCC_PREFIX_HEADER = CutTheRopeDemo/Prefix.pch;
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
 				INFOPLIST_FILE = CutTheRopeDemo/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/CutTheRopeDemo/libs/cocos2dx/platform/third_party/ios/libraries\"",

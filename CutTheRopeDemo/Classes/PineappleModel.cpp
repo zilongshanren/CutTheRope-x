@@ -7,6 +7,7 @@
 //
 
 #include "PineappleModel.h"
+#include "Constants.h"
 
 
 PineappleModel::PineappleModel()
