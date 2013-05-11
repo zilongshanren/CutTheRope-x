@@ -9,6 +9,9 @@
 #include "SimpleAudioEngine.h"
 #include "GLES-Render.h"
 #include "LevelFileHandler.h"
+#include "PineappleModel.h"
+#include "RopeModel.h"
+#include "CoordinateHelper.h"
 
 using namespace cocos2d;
 using namespace CocosDenshion;
@@ -99,15 +102,14 @@ HelloWorld::HelloWorld()
     croc_->setPosition(ccp(320,30));
     this->addChild(croc_,1);
    
-    ropeSpriteSheet = CCSpriteBatchNode::create("rope_texture.png");
-    this->addChild(ropeSpriteSheet);
+    _ropeSpriteSheet = CCSpriteBatchNode::create("rope_texture.png");
+    this->addChild(_ropeSpriteSheet);
 
     srand(time(NULL));
     
     //load xml level
     const char *levelPath = CCFileUtils::sharedFileUtils()->fullPathForFilename("level0.xml").c_str();
-    CCLOG("level path = %s", levelPath);
-    LevelFileHelper *levelHelper = new LevelFileHelper(levelPath);
+   _levelEditor = new LevelFileHelper(levelPath);
     
     
     // init physics
@@ -141,7 +143,7 @@ HelloWorld::~HelloWorld()
     
     CC_SAFE_DELETE(contactListener);
     CC_SAFE_DELETE(_debugDraw);
-    
+    CC_SAFE_DELETE(_levelEditor);
 }
 
 #pragma mark - physics
@@ -258,8 +260,8 @@ void HelloWorld::update(float dt)
     
     // Update all the ropes
     
-    for (int i=0; i <ropes.size(); ++i) {
-        VRope *rope = ropes[i];
+    for (int i=0; i <_ropes.size(); ++i) {
+        VRope *rope = _ropes[i];
         rope->update(dt);
         rope->updateSprites();
     }
@@ -298,8 +300,8 @@ void HelloWorld::update(float dt)
         }
         
         // Check if the body was indeed one of the candies
-        vector<b2Body*>::iterator candyIter = std::find(candies.begin(), candies.end(), potentialCandy);
-        if (potentialCandy && candyIter != candies.end())
+        vector<b2Body*>::iterator candyIter = std::find(_candies.begin(), _candies.end(), potentialCandy);
+        if (potentialCandy && candyIter != _candies.end())
         {
             // Set it to be destroyed
             toDestroy.push_back(potentialCandy);
@@ -360,12 +362,12 @@ void HelloWorld::update(float dt)
             b2Joint *joint = joints->joint;
             
             // Look in all the ropes
-            vector<VRope*>::iterator posIter = ropes.begin();
-            for (int i=0; i < ropes.size(); ++i) {
-                VRope* rope = ropes[i];
+            vector<VRope*>::iterator posIter = _ropes.begin();
+            for (int i=0; i < _ropes.size(); ++i) {
+                VRope* rope = _ropes[i];
                 if (rope->getJoint() == joint) {
                     rope->removeSprites();
-                    ropes.erase( posIter + i);
+                    _ropes.erase( posIter + i);
                     break;
                 }
             }
@@ -378,8 +380,7 @@ void HelloWorld::update(float dt)
         world->DestroyBody(body);
         
         // Removes from the candies array
-        //[candies removeObject:[NSValue valueWithPointer:body]];
-        candies.erase(std::find(candies.begin(), candies.end(), body));
+        _candies.erase(std::find(_candies.begin(), _candies.end(), body));
     }
     
     if (shouldCloseCrocMouth)
@@ -413,8 +414,8 @@ void HelloWorld::ccTouchesMoved(cocos2d::CCSet *touches, cocos2d::CCEvent *event
     pt0.y = s.height - pt0.y;
     pt1.y = s.height - pt1.y;
     
-    for (int i=0; i < ropes.size(); ++i) {
-        VRope *rope = ropes[i];
+    for (int i=0; i < _ropes.size(); ++i) {
+        VRope *rope = _ropes[i];
         vector<VStick*> stick = rope->getSticks();
         for (int j=0; j < stick.size(); ++j) {
             VStick *pStick = stick[j];
@@ -427,7 +428,7 @@ void HelloWorld::ccTouchesMoved(cocos2d::CCSet *touches, cocos2d::CCEvent *event
                 b2Body *newbodyB = this->createRopeTipBody();
                 
                 VRope *newRope = rope->cutRopeInStick(pStick, newBodyA, newbodyB);
-                ropes.push_back(newRope);
+                _ropes.push_back(newRope);
                 
                 SimpleAudioEngine::sharedEngine()->playEffect(kCuttingSound);
                 return;
@@ -490,7 +491,7 @@ b2Body* HelloWorld::createCandyAt(cocos2d::CCPoint pt)
     fixtureDef.filter.maskBits = 0x01;
     body->CreateFixture(&fixtureDef);
     
-    candies.push_back(body);
+    _candies.push_back(body);
     
     return body;
 }
@@ -510,24 +511,60 @@ void HelloWorld::createRope(b2Body *bodyA, b2Body *bodyB, b2Vec2 anchorA, b2Vec2
     // Create joint
     b2RopeJoint *ropeJoint = (b2RopeJoint *)world->CreateJoint(&jd);
     
-    VRope *newRope = new VRope(ropeJoint, ropeSpriteSheet);
-    ropes.push_back(newRope);
+    VRope *newRope = new VRope(ropeJoint, _ropeSpriteSheet);
+    _ropes.push_back(newRope);
 }
 
 void HelloWorld::initLevel()
 {
     
     CCSize s = CCDirector::sharedDirector()->getWinSize();
-    b2Body *body1 = this->createCandyAt(ccp(s.width * 0.5, s.height * 0.7));
+    std::map<int, b2Body*> map;
     
-    this->createRope(groundBody, body1, cc_to_b2Vec(s.width * 0.15, s.height * 0.8),
-                     body1->GetLocalCenter(), 1.1);
+    CCArray *pineapples = _levelEditor->_pineapples;
+//    for (PineappleModel* pineapple in levelFileHandler.pineapples) {
+//        b2Body* body = [self createPineappleAt:[CoordinateHelper levelPositionToScreenPosition:pineapple.position]];
+//        body->SetLinearDamping(pineapple.damping);
+//        [pineapplesDict setObject:[NSValue valueWithPointer:body] forKey:[NSNumber numberWithInt: pineapple.id]];
+//    }
+    CCObject *obj;
+    CCARRAY_FOREACH(pineapples, obj)
+    {
+        PineappleModel *pm = (PineappleModel*)obj;
+        b2Body *body = this->createCandyAt(CoordinateHelper::levelPositioinToScreenPosition(pm->position));
+        body->SetLinearDamping(pm->damping);
+        map.insert(make_pair(pm->id, body));
+    }
     
-    this->createRope(body1, groundBody, body1->GetLocalCenter(), cc_to_b2Vec(s.width * 0.85,
-                                                                             s.height * 0.8), 1.1);
-    
-    this->createRope(body1, groundBody, body1->GetLocalCenter(),
-                     cc_to_b2Vec(s.width * 0.83, s.height * 0.6), 1.1);
+    CCArray *ropes = _levelEditor->_ropes;
+    CCARRAY_FOREACH(ropes, obj)
+    {
+        RopeModel *rm = (RopeModel*)obj;
+        b2Vec2 vec1;
+        b2Body *body1;
+        if (rm->bodyAId == -1) {
+            body1 = groundBody;
+            CCPoint anchorA = CoordinateHelper::levelPositioinToScreenPosition(rm->achorA);
+            vec1 = cc_to_b2Vec(anchorA.x, anchorA.y);
+        }else{
+            body1 = map[rm->bodyAId];
+            vec1 = body1->GetLocalCenter();
+        }
+        
+        b2Vec2 vec2;
+        b2Body *body2;
+        if (rm->bodyBId == -1) {
+            body2 = groundBody;
+            CCPoint anchorB = CoordinateHelper::levelPositioinToScreenPosition(rm->achorB);
+            vec2 = cc_to_b2Vec(anchorB.x, anchorB.y);
+        }else{
+            body2 = map[rm->bodyBId];
+            vec2 = body2->GetLocalCenter();
+        }
+        
+        this->createRope(body1, body2, vec1, vec2, rm->sagity);
+    }
+
     
     int n = 10 * 60;
     int32 velocityIterations = 8;
@@ -537,28 +574,16 @@ void HelloWorld::initLevel()
     {
         // Instruct the world to perform a single step of simulation.
         world->Step(dt, velocityIterations, positionIterations);
-        for (int i=0; i < ropes.size(); ++i) {
-            VRope* rope = ropes[i];
+        for (int i=0; i < _ropes.size(); ++i) {
+            VRope* rope = _ropes[i];
             rope->update(dt);
         }
     }
     
     // This last update takes care of the texture repositioning.
-   // [self update:dt];
     this->update(dt);
     
     crocMouthOpened = true;
-    
-    
-    // Add the candy
-    b2Body *body2 = this->createCandyAt(ccp(s.width * 0.5, s.height));
-    
-    // Change the linear dumping so it swings more
-    body2->SetLinearDamping(0.01);
-    
-    // Add a bunch of ropes
-    this->createRope(groundBody, body2, cc_to_b2Vec(s.width * 0.65,
-                                                    s.height + 5), body2->GetLocalCenter(), 1.0);
 }
 
 bool HelloWorld::checkLineIntersection(cocos2d::CCPoint p1, cocos2d::CCPoint p2, cocos2d::CCPoint p3, cocos2d::CCPoint p4)
@@ -615,13 +640,13 @@ void HelloWorld::changeCrocAttitude()
 void HelloWorld::checkLevelFinish(bool forceFinish)
 {
     
-    if (candies.size() == 0 || forceFinish) {
+    if (_candies.size() == 0 || forceFinish) {
         this->finishLevel();
         
         this->scheduleOnce(schedule_selector(HelloWorld::restartGame), 2.0);
     }
     
-    if (candies.size() == 0 && !forceFinish)
+    if (_candies.size() == 0 && !forceFinish)
     {
         CCSize s = CCDirector::sharedDirector()->getWinSize();
         _winLabel = CCLabelTTF::create("You Win!",  "Verdana-Bold",60.0,s,kCCTextAlignmentCenter,kCCVerticalTextAlignmentCenter);
@@ -643,8 +668,8 @@ void HelloWorld::finishLevel()
     
     // Destroy every rope and add the objects that should be destroyed
     
-    for (int i=0; i < ropes.size(); ++i) {
-        VRope* rope = ropes[i];
+    for (int i=0; i < _ropes.size(); ++i) {
+        VRope* rope = _ropes[i];
         rope->removeSprites();
         
         if (rope->getJoint()->GetBodyA() != groundBody) {
@@ -660,7 +685,7 @@ void HelloWorld::finishLevel()
         //prevent memory leaks
         delete rope;
     }
-    ropes.clear();
+    _ropes.clear();
 
     
     
@@ -681,14 +706,14 @@ void HelloWorld::finishLevel()
         world->DestroyBody(body);
     }
     
-    candies.clear();
+    _candies.clear();
 
     
-    for (int i=0; i < sticks.size(); ++i) {
-        CC_SAFE_DELETE(sticks[i]);
+    for (int i=0; i < _sticks.size(); ++i) {
+        CC_SAFE_DELETE(_sticks[i]);
     }
     
-    sticks.clear();
+    _sticks.clear();
     
 
 }

@@ -17,6 +17,7 @@
 USING_NS_CC;
 
 class GLESDebugDraw;
+class LevelFileHelper;
 
 class PhysicsSprite : public cocos2d::CCSprite
 {
@@ -61,12 +62,12 @@ private:
     
     CCSprite *croc_;            // weak ref
     
-    vector<VRope*> ropes;
-    vector<b2Body*> candies;
-    vector<VStick*> sticks;
+    vector<VRope*> _ropes;
+    vector<b2Body*> _candies;
+    vector<VStick*> _sticks;
     
     b2Body* groundBody;    // weak ref
-    CCSpriteBatchNode *ropeSpriteSheet; // weak ref
+    CCSpriteBatchNode *_ropeSpriteSheet; // weak ref
     GLESDebugDraw   *_debugDraw;
     
     b2Body *crocMouth_;          // weak ref
@@ -76,6 +77,8 @@ private:
     MyContactListener *contactListener;
     CCLabelTTF *_loseLabel;
     CCLabelTTF *_winLabel;
+    
+    LevelFileHelper     *_levelEditor;
 };
 
 #endif // __HELLO_WORLD_H__

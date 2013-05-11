@@ -2114,6 +2114,7 @@
 		89DB845E173C8A3100E6EEC5 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				89DB84A5173DD62D00E6EEC5 /* model */,
 				89DB848A173CCAC000E6EEC5 /* GLES-Render.cpp */,
 				89DB848B173CCAC000E6EEC5 /* GLES-Render.h */,
 				89DB847B173C8C9100E6EEC5 /* vrope-x */,
@@ -2125,14 +2126,7 @@
 				89DB8490173CE95800E6EEC5 /* MyContactListener.h */,
 				89DB8492173D242A00E6EEC5 /* CoordinateHelper.cpp */,
 				89DB8493173D242A00E6EEC5 /* CoordinateHelper.h */,
-				89DB8497173D281800E6EEC5 /* AbstractModel.cpp */,
-				89DB8498173D281800E6EEC5 /* AbstractModel.h */,
-				89DB849A173D288600E6EEC5 /* PineappleModel.cpp */,
-				89DB849B173D288600E6EEC5 /* PineappleModel.h */,
-				89DB849D173D297D00E6EEC5 /* RopeModel.cpp */,
-				89DB849E173D297D00E6EEC5 /* RopeModel.h */,
-				89DB84A0173D2A3A00E6EEC5 /* LevelFileHandler.cpp */,
-				89DB84A1173D2A3A00E6EEC5 /* LevelFileHandler.h */,
+				89DB84A6173DD64000E6EEC5 /* LevelEditor */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -2180,6 +2174,28 @@
 			);
 			name = sound;
 			path = Resources/sound;
+			sourceTree = "<group>";
+		};
+		89DB84A5173DD62D00E6EEC5 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				89DB8497173D281800E6EEC5 /* AbstractModel.cpp */,
+				89DB8498173D281800E6EEC5 /* AbstractModel.h */,
+				89DB849A173D288600E6EEC5 /* PineappleModel.cpp */,
+				89DB849B173D288600E6EEC5 /* PineappleModel.h */,
+				89DB849D173D297D00E6EEC5 /* RopeModel.cpp */,
+				89DB849E173D297D00E6EEC5 /* RopeModel.h */,
+			);
+			name = model;
+			sourceTree = "<group>";
+		};
+		89DB84A6173DD64000E6EEC5 /* LevelEditor */ = {
+			isa = PBXGroup;
+			children = (
+				89DB84A0173D2A3A00E6EEC5 /* LevelFileHandler.cpp */,
+				89DB84A1173D2A3A00E6EEC5 /* LevelFileHandler.h */,
+			);
+			name = LevelEditor;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

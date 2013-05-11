@@ -82,8 +82,8 @@ void LevelFileHelper::loadLevel()
         float ay;
         
         if (rm->bodyAId == -1) {
-            ropeChild->FloatAttribute("x");
-            ropeChild->FloatAttribute("y");
+            ax = ropeChild->FloatAttribute("x");
+            ay = ropeChild->FloatAttribute("y");
         }else{
             PineappleModel *pm = this->getPineappleWithID(rm->bodyAId);
             ax = pm->position.x;
@@ -99,8 +99,8 @@ void LevelFileHelper::loadLevel()
 
         
         if (rm->bodyBId == -1) {
-            ropeChild->FloatAttribute("x");
-            ropeChild->FloatAttribute("y");
+            ax = ropeChild->FloatAttribute("x");
+            ay = ropeChild->FloatAttribute("y");
         }else{
             PineappleModel *pm = this->getPineappleWithID(rm->bodyBId);
             ax = pm->position.x;
