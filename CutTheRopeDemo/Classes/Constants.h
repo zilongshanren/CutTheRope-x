@@ -15,6 +15,8 @@ USING_NS_CC;
 extern float const kDefaultDamping;
 extern float const kDefaultSagity;
 
+extern const char *kLevelName;
+
 extern ccColor3B kDefaultBackgroundColor;
 extern ccColor3B kDefaultSelectableColor;
 extern ccColor3B kDefaultDisabledColor;

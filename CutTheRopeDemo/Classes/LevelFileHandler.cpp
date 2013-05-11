@@ -332,6 +332,7 @@ void LevelFileHelper::saveFile()
         levelElement->InsertEndChild(ropeElemnent);
     }
 
-    doc->Print();
-    
+    //doc->Print();
+    std::string fileName = CCFileUtils::sharedFileUtils()->getWritablePath() + kLevelName;
+    doc->SaveFile(fileName.c_str());
 }
