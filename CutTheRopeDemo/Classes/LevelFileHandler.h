@@ -41,6 +41,7 @@ public:
     void movePineappleWithID(int pineappleID, CCPoint pt);
     
     void saveFile();
+    void reset();
     
 private:
     LevelFileHelper();

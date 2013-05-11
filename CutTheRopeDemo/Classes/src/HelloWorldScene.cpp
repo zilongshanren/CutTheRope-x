@@ -461,8 +461,15 @@ CCScene* HelloWorld::scene()
     // 'scene' is an autorelease object
     CCScene *scene = CCScene::create();
     
-    const char *levelPath = CCFileUtils::sharedFileUtils()->fullPathForFilename("level0.xml").c_str();
-     LevelFileHelper *lh = new LevelFileHelper(levelPath);
+    //const char *levelPath = CCFileUtils::sharedFileUtils()->fullPathForFilename("level0.xml").c_str();
+    std::string levelPath = CCFileUtils::sharedFileUtils()->getWritablePath() + kLevelName;
+    LevelFileHelper *lh ;
+    if (CCFileUtils::sharedFileUtils()->isFileExist(levelPath)) {
+        lh = new LevelFileHelper(levelPath.c_str());
+
+    }else{
+        lh = new LevelFileHelper( CCFileUtils::sharedFileUtils()->fullPathForFilename(kLevelName).c_str());
+    }
     
     // add layer as a child to scene
     CCLayer* layer = new HelloWorld(lh);

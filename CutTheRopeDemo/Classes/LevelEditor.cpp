@@ -114,6 +114,21 @@ void LevelEditor::createMenu()
 void LevelEditor::resetLevel()
 {
     CCLOG("reset level");
+    //why use rest level?
+    
+//    _pineapplesSpriteSheet->removeAllChildrenWithCleanup(true);
+//    _ropeSpriteSheet->removeAllChildrenWithCleanup(true);
+//    if (_ropeSpritesArray) {
+//        _ropeSpritesArray->removeAllObjects();
+//    }
+//    
+//    if (_connectedRopes) {
+//        _connectedRopes->removeAllObjects();
+//    }
+//    
+//    _selectedObject = NULL;
+//    _fileHandler->reset();
+//    this->drawLoadedLevel();
 }
 
 

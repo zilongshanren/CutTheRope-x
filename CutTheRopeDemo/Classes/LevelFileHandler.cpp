@@ -335,4 +335,10 @@ void LevelFileHelper::saveFile()
     //doc->Print();
     std::string fileName = CCFileUtils::sharedFileUtils()->getWritablePath() + kLevelName;
     doc->SaveFile(fileName.c_str());
+    _levelFile = fileName.c_str();
+}
+
+void LevelFileHelper::reset()
+{
+    this->loadLevel();
 }
