@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		892C775B173E180200EE37BE /* PopupMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 892C7759173E180200EE37BE /* PopupMenu.cpp */; };
+		897A213D173E82BF00BC5D24 /* LevelSelectionScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 897A213B173E82BF00BC5D24 /* LevelSelectionScene.cpp */; };
+		897A2140173E883500BC5D24 /* GameManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 897A213E173E883500BC5D24 /* GameManager.cpp */; };
 		89DB80BB173C8A2800E6EEC5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89DB80BA173C8A2800E6EEC5 /* QuartzCore.framework */; };
 		89DB80BD173C8A2800E6EEC5 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89DB80BC173C8A2800E6EEC5 /* OpenGLES.framework */; };
 		89DB80BF173C8A2800E6EEC5 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89DB80BE173C8A2800E6EEC5 /* OpenAL.framework */; };
@@ -310,6 +312,10 @@
 /* Begin PBXFileReference section */
 		892C7759173E180200EE37BE /* PopupMenu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PopupMenu.cpp; path = Classes/PopupMenu.cpp; sourceTree = "<group>"; };
 		892C775A173E180200EE37BE /* PopupMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PopupMenu.h; path = Classes/PopupMenu.h; sourceTree = "<group>"; };
+		897A213B173E82BF00BC5D24 /* LevelSelectionScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LevelSelectionScene.cpp; path = Classes/LevelSelectionScene.cpp; sourceTree = "<group>"; };
+		897A213C173E82BF00BC5D24 /* LevelSelectionScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LevelSelectionScene.h; path = Classes/LevelSelectionScene.h; sourceTree = "<group>"; };
+		897A213E173E883500BC5D24 /* GameManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GameManager.cpp; path = Classes/GameManager.cpp; sourceTree = "<group>"; };
+		897A213F173E883500BC5D24 /* GameManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameManager.h; path = Classes/GameManager.h; sourceTree = "<group>"; };
 		89DB80B7173C8A2800E6EEC5 /* CutTheRopeDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CutTheRopeDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		89DB80BA173C8A2800E6EEC5 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		89DB80BC173C8A2800E6EEC5 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -981,6 +987,8 @@
 				89DB8490173CE95800E6EEC5 /* MyContactListener.h */,
 				89DB8492173D242A00E6EEC5 /* CoordinateHelper.cpp */,
 				89DB8493173D242A00E6EEC5 /* CoordinateHelper.h */,
+				897A213E173E883500BC5D24 /* GameManager.cpp */,
+				897A213F173E883500BC5D24 /* GameManager.h */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -2230,6 +2238,8 @@
 				89DB84AE173DEC6400E6EEC5 /* RopeSprite.h */,
 				892C7759173E180200EE37BE /* PopupMenu.cpp */,
 				892C775A173E180200EE37BE /* PopupMenu.h */,
+				897A213B173E82BF00BC5D24 /* LevelSelectionScene.cpp */,
+				897A213C173E82BF00BC5D24 /* LevelSelectionScene.h */,
 			);
 			name = LevelEditor;
 			sourceTree = "<group>";
@@ -2582,6 +2592,8 @@
 				89DB84AC173DE58300E6EEC5 /* Constants.cpp in Sources */,
 				89DB84AF173DEC6400E6EEC5 /* RopeSprite.cpp in Sources */,
 				892C775B173E180200EE37BE /* PopupMenu.cpp in Sources */,
+				897A213D173E82BF00BC5D24 /* LevelSelectionScene.cpp in Sources */,
+				897A2140173E883500BC5D24 /* GameManager.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

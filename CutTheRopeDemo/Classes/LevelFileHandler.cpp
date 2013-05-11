@@ -11,6 +11,7 @@
 #include "PineappleModel.h"
 #include "RopeModel.h"
 #include "Constants.h"
+#include "GameManager.h"
 
 using namespace tinyxml2;
 
@@ -333,7 +334,8 @@ void LevelFileHelper::saveFile()
     }
 
     //doc->Print();
-    std::string fileName = CCFileUtils::sharedFileUtils()->getWritablePath() + kLevelName;
+    CCString *levelName = CCString::createWithFormat("level%d.xml",GameManager::getInstance()->levelNumber);
+    std::string fileName = CCFileUtils::sharedFileUtils()->getWritablePath() + levelName->getCString();
     doc->SaveFile(fileName.c_str());
     _levelFile = fileName.c_str();
 }

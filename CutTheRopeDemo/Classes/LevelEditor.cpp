@@ -14,6 +14,7 @@
 #include "RopeModel.h"
 #include "CoordinateHelper.h"
 #include "RopeSprite.h"
+#include "LevelSelectionScene.h"
 
 
 
@@ -98,7 +99,7 @@ void LevelEditor::createMenu()
     CCLabelTTF *saveLabel = CCLabelTTF::create("Save", "Marker Felt", 24);
     CCMenuItem  *saveItem = CCMenuItemLabel::create(saveLabel, this, menu_selector(LevelEditor::saveLevel));
     
-    CCLabelTTF *resetLabel = CCLabelTTF::create("Reset", "Marker Felt", 24);
+    CCLabelTTF *resetLabel = CCLabelTTF::create("Select Level", "Marker Felt", 24);
     CCMenuItemLabel *resetItem = CCMenuItemLabel::create(resetLabel, this, menu_selector(LevelEditor::resetLevel));
     
     CCLabelTTF *playLabel = CCLabelTTF::create("Play Level", "Marker Felt", 24);
@@ -106,7 +107,7 @@ void LevelEditor::createMenu()
     CCMenu *menu = CCMenu::create(saveItem,resetItem,playLevelItem,NULL);
     menu->setPosition(winSize.width/2, saveItem->getContentSize().height/2);
     this->addChild(menu,100);
-    menu->alignItemsHorizontallyWithPadding(50);
+    menu->alignItemsHorizontallyWithPadding(20);
     
     
 }
@@ -116,19 +117,23 @@ void LevelEditor::resetLevel()
     CCLOG("reset level");
     //why use rest level?
     
-//    _pineapplesSpriteSheet->removeAllChildrenWithCleanup(true);
-//    _ropeSpriteSheet->removeAllChildrenWithCleanup(true);
-//    if (_ropeSpritesArray) {
-//        _ropeSpritesArray->removeAllObjects();
-//    }
-//    
-//    if (_connectedRopes) {
-//        _connectedRopes->removeAllObjects();
-//    }
-//    
-//    _selectedObject = NULL;
+    _pineapplesSpriteSheet->removeAllChildrenWithCleanup(true);
+    _ropeSpriteSheet->removeAllChildrenWithCleanup(true);
+    if (_ropeSpritesArray) {
+        _ropeSpritesArray->removeAllObjects();
+    }
+    
+    if (_connectedRopes) {
+        _connectedRopes->removeAllObjects();
+    }
+    
+    _selectedObject = NULL;
+    
+    //go to menu scene
+    
 //    _fileHandler->reset();
 //    this->drawLoadedLevel();
+    CCDirector::sharedDirector()->replaceScene(LevelSelectionScene::scene());
 }
 
 
