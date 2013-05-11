@@ -39,6 +39,9 @@ public:
     
     void moveRopeWithId(int ropeID, anchorType type,int anchorID, CCPoint pt);
     void movePineappleWithID(int pineappleID, CCPoint pt);
+    
+    void saveFile();
+    
 private:
     LevelFileHelper();
     const char* _levelFile;

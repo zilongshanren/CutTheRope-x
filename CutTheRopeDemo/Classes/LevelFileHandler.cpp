@@ -277,3 +277,61 @@ void LevelFileHelper::movePineappleWithID(int pineappleID, cocos2d::CCPoint pt)
         }
     }
 }
+
+void LevelFileHelper::saveFile()
+{
+//    // create empty xml structure
+    
+    XMLDocument *doc = new XMLDocument();
+    XMLNode *levelElement = doc->InsertEndChild(doc->NewElement("level"));
+    CCObject *obj;
+    CCARRAY_FOREACH(_pineapples, obj)
+    {
+        PineappleModel *pm = (PineappleModel*)obj;
+        XMLElement *pineappleElemnent = doc->NewElement("pineapple");
+        pineappleElemnent->SetAttribute("id", CCString::createWithFormat("%d",pm->id)->getCString());
+        pineappleElemnent->SetAttribute("x", CCString::createWithFormat("%.3f",pm->position.x)->getCString());
+        pineappleElemnent->SetAttribute("y", CCString::createWithFormat("%.3f",pm->position.y)->getCString());
+        if (fabs(pm->damping - kDefaultDamping) > 0.00001 ) {
+            pineappleElemnent->SetAttribute("damping",
+                                            CCString::createWithFormat("%.1f",pm->damping)->getCString());
+        }
+        
+        levelElement->InsertEndChild(pineappleElemnent);
+    }
+    
+    // Add all rope elements
+    CCARRAY_FOREACH(_ropes, obj)
+    {
+        RopeModel *rope = (RopeModel*)obj;
+        
+        
+        XMLElement *ropeElemnent = doc->NewElement("rope");
+        
+        //Anchor A
+        XMLElement *anchorAElement = doc->NewElement("anchorA");
+        anchorAElement->SetAttribute("body", CCString::createWithFormat("%d",rope->bodyAId)->getCString());
+        
+        if (rope->bodyAId == -1) {
+            anchorAElement->SetAttribute("x", CCString::createWithFormat("%.3f",rope->achorA.x)->getCString());
+            anchorAElement->SetAttribute("y", CCString::createWithFormat("%.3f",rope->achorA.y)->getCString());
+        }
+        
+        //Anchor B
+        XMLElement *anchorBElement = doc->NewElement("anchorB");
+        anchorBElement->SetAttribute("body", CCString::createWithFormat("%d",rope->bodyBId)->getCString());
+        if (rope->bodyBId == -1) {
+            anchorBElement->SetAttribute("x", CCString::createWithFormat("%.3f",rope->achorB.x)->getCString());
+            anchorBElement->SetAttribute("y", CCString::createWithFormat("%.3f",rope->achorB.y)->getCString());
+        }
+        
+        
+        //add rope
+        ropeElemnent->InsertEndChild(anchorAElement);
+        ropeElemnent->InsertEndChild(anchorBElement);
+        levelElement->InsertEndChild(ropeElemnent);
+    }
+
+    doc->Print();
+    
+}

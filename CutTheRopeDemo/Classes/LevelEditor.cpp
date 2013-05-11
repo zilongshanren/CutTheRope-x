@@ -125,6 +125,7 @@ void LevelEditor::playLevel()
 void LevelEditor::saveLevel()
 {
     CCLOG("saveLevel");
+    _fileHandler->saveFile();
 }
 
 void LevelEditor::drawLoadedLevel()
@@ -187,7 +188,7 @@ void LevelEditor::createPineappleSpriteFromModel(PineappleModel *pm)
 #pragma mark - touches handler
 void LevelEditor::ccTouchesBegan(cocos2d::CCSet *pTouches, cocos2d::CCEvent *pEvent)
 {
-    CCLOG("touch began count = %d", pTouches->count());
+    //CCLOG("touch began count = %d", pTouches->count());
     //如果4个手指同时按下，则弹出菜单，取代长按的手势
     CCTouch *touch = (CCTouch*)pTouches->anyObject();
     CCPoint touchLocation = touch->getLocationInView();
@@ -229,7 +230,7 @@ void LevelEditor::longPress(cocos2d::CCPoint pt)
 
 void LevelEditor::ccTouchesMoved(cocos2d::CCSet *pTouches, cocos2d::CCEvent *pEvent)
 {
-    CCLOG("touch move count = %d", pTouches->count());
+    //CCLOG("touch move count = %d", pTouches->count());
     
     
     if (_selectedObject && _mode == kEditMode) {
@@ -266,7 +267,7 @@ void LevelEditor::ccTouchesMoved(cocos2d::CCSet *pTouches, cocos2d::CCEvent *pEv
 
 void LevelEditor::ccTouchesEnded(cocos2d::CCSet *pTouches, cocos2d::CCEvent *pEvent)
 {
-    CCLOG("touch end count = %d", pTouches->count());
+    //CCLOG("touch end count = %d", pTouches->count());
     if (_mode == kEditMode) {
         RopeSprite *rope = dynamic_cast<RopeSprite*>(_selectedObject);
         if (NULL != rope) {
