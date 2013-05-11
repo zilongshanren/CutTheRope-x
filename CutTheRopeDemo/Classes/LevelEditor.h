@@ -20,7 +20,7 @@ class LevelEditor : public CCLayer
 public:
     LevelEditor(LevelFileHelper *levelHelper);
     ~LevelEditor();
-    CCScene* createWithLevel(LevelFileHelper *levelHelper);
+    static CCScene* createWithLevel(LevelFileHelper *levelHelper);
     
     virtual bool init();
     

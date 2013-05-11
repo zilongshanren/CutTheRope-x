@@ -9,6 +9,7 @@
 #include "LevelEditor.h"
 #include "LevelFileHandler.h"
 #include "Constants.h"
+#include "HelloWorldScene.h"
 
 
 #pragma mark - initialize
@@ -33,7 +34,7 @@ CCScene* LevelEditor::createWithLevel(LevelFileHelper *levelHelper)
     LevelEditor *le = new LevelEditor(levelHelper);
     if (le) {
         le->init();
-        sc->addChild(sc);
+        sc->addChild(le);
         
         return sc;
     }
@@ -76,13 +77,6 @@ bool LevelEditor::init()
 #pragma mark - logic
 void LevelEditor::createMenu()
 {
-
-//    
-//    // Create menu with buttons
-//    CCMenu* menu = [CCMenu menuWithItems:saveItem, resetItem, playLevelItem, nil];
-//    [menu alignItemsHorizontallyWithPadding:winSize.width*0.1f];
-//    menu.position = CGPointMake(winSize.width/2, saveItem.contentSize.height/2);
-//    [self addChild:menu z:100];
     
     CCSize winSize = CCDirector::sharedDirector()->getWinSize();
     CCLabelTTF *saveLabel = CCLabelTTF::create("Save", "Marker Felt", 24);
@@ -96,6 +90,7 @@ void LevelEditor::createMenu()
     CCMenu *menu = CCMenu::create(saveItem,resetItem,playLevelItem,NULL);
     menu->setPosition(winSize.width/2, saveItem->getContentSize().height/2);
     this->addChild(menu,100);
+    menu->alignItemsHorizontallyWithPadding(50);
     
     
 }
@@ -108,7 +103,7 @@ void LevelEditor::resetLevel()
 
 void LevelEditor::playLevel()
 {
-    CCDirector::sharedDirector()->replaceScene(this->createWithLevel(_fileHandler));
+    CCDirector::sharedDirector()->replaceScene(HelloWorld::HelloWorldSceneWithLevelHandler(_fileHandler));
 }
 
 void LevelEditor::saveLevel()

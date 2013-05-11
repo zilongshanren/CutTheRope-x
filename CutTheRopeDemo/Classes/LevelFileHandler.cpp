@@ -26,6 +26,8 @@ LevelFileHelper::~LevelFileHelper()
 {
     CC_SAFE_RELEASE_NULL(_pineapples);
     CC_SAFE_RELEASE_NULL(_ropes);
+    
+    CCLOG("~LevelFileHelper");
 }
 
 void LevelFileHelper::loadLevel()

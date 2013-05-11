@@ -12,6 +12,7 @@
 #include "PineappleModel.h"
 #include "RopeModel.h"
 #include "CoordinateHelper.h"
+#include "LevelEditor.h"
 
 using namespace cocos2d;
 using namespace CocosDenshion;
@@ -83,7 +84,7 @@ CCAffineTransform PhysicsSprite::nodeToParentTransform(void)
 
 #pragma mark - HelloWorld
 
-HelloWorld::HelloWorld()
+HelloWorld::HelloWorld(LevelFileHelper* levelHelper)
 {
     setTouchEnabled( true );
   
@@ -108,10 +109,11 @@ HelloWorld::HelloWorld()
     srand(time(NULL));
     
     //load xml level
-    const char *levelPath = CCFileUtils::sharedFileUtils()->fullPathForFilename("level0.xml").c_str();
-   _levelEditor = new LevelFileHelper(levelPath);
+
+    _levelEditor = levelHelper;
     
     
+    this->createMenu();
     // init physics
     this->initPhysics();
     
@@ -131,6 +133,21 @@ HelloWorld::HelloWorld()
     scheduleUpdate();
 }
 
+void HelloWorld::createMenu()
+{
+    CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+    CCLabelTTF *editorLabel = CCLabelTTF::create("Editor", "Marker Felt", 24);
+    CCMenuItem *toEditorItem = CCMenuItemLabel::create(editorLabel, this, menu_selector(HelloWorld::switchToEditor));
+    
+    CCLabelTTF *menuLabel = CCLabelTTF::create("Menu", "Marker Felt", 24);
+    CCMenuItem *toMenuItem = CCMenuItemLabel::create(menuLabel, this, menu_selector(HelloWorld::switchToMenu));
+    
+    CCMenu *menu = CCMenu::create(toMenuItem,toEditorItem,NULL);
+    menu->setPosition(ccp(winSize.width/2, toEditorItem->getContentSize().height/2));
+    this->addChild(menu,100);
+    menu->alignItemsHorizontallyWithPadding(winSize.width * 0.1);
+}
+
 HelloWorld::~HelloWorld()
 {
     delete world;
@@ -138,12 +155,12 @@ HelloWorld::~HelloWorld()
     
     //delete m_debugDraw;
     //TODO: clear all ropes
-
+    CCLOG("~HelloWorld");
     
     
     CC_SAFE_DELETE(contactListener);
     CC_SAFE_DELETE(_debugDraw);
-    CC_SAFE_DELETE(_levelEditor);
+    //CC_SAFE_DELETE(_levelEditor);
 }
 
 #pragma mark - physics
@@ -444,8 +461,11 @@ CCScene* HelloWorld::scene()
     // 'scene' is an autorelease object
     CCScene *scene = CCScene::create();
     
+    const char *levelPath = CCFileUtils::sharedFileUtils()->fullPathForFilename("level0.xml").c_str();
+     LevelFileHelper *lh = new LevelFileHelper(levelPath);
+    
     // add layer as a child to scene
-    CCLayer* layer = new HelloWorld();
+    CCLayer* layer = new HelloWorld(lh);
     scene->addChild(layer);
     layer->release();
     
@@ -518,15 +538,10 @@ void HelloWorld::createRope(b2Body *bodyA, b2Body *bodyB, b2Vec2 anchorA, b2Vec2
 void HelloWorld::initLevel()
 {
     
-    CCSize s = CCDirector::sharedDirector()->getWinSize();
+   // CCSize s = CCDirector::sharedDirector()->getWinSize();
     std::map<int, b2Body*> map;
     
     CCArray *pineapples = _levelEditor->_pineapples;
-//    for (PineappleModel* pineapple in levelFileHandler.pineapples) {
-//        b2Body* body = [self createPineappleAt:[CoordinateHelper levelPositionToScreenPosition:pineapple.position]];
-//        body->SetLinearDamping(pineapple.damping);
-//        [pineapplesDict setObject:[NSValue valueWithPointer:body] forKey:[NSNumber numberWithInt: pineapple.id]];
-//    }
     CCObject *obj;
     CCARRAY_FOREACH(pineapples, obj)
     {
@@ -716,4 +731,26 @@ void HelloWorld::finishLevel()
     _sticks.clear();
     
 
+}
+
+CCScene* HelloWorld::HelloWorldSceneWithLevelHandler(LevelFileHelper* levelHelper)
+{
+    CCScene *sc = CCScene::create();
+    
+    HelloWorld *layer = new HelloWorld(levelHelper);
+    
+    sc->addChild(layer);
+    
+    return sc;
+}
+
+void HelloWorld::switchToEditor()
+{
+    CCScene *editorScene = LevelEditor::createWithLevel(_levelEditor);
+    CCDirector::sharedDirector()->replaceScene(editorScene);
+}
+
+void HelloWorld::switchToMenu()
+{
+    
 }

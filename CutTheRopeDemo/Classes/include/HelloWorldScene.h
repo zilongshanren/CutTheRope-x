@@ -30,13 +30,17 @@ private:
     b2Body* m_pBody;    // strong ref
 };
 
+USING_NS_CC;
+
 class HelloWorld : public cocos2d::CCLayer {
 public:
     ~HelloWorld();
-    HelloWorld();
+    HelloWorld(LevelFileHelper* levelHelper);
     
     // returns a Scene that contains the HelloWorld as the only child
     static cocos2d::CCScene* scene();
+    static CCScene *HelloWorldSceneWithLevelHandler(LevelFileHelper* levelHelper);
+    
     
     void initPhysics();
     // adds a new sprite at a given coordinate
@@ -56,6 +60,12 @@ public:
     //action callbacks
     void finishAction(CCObject *pSender);
     void restartGame();
+    void switchToEditor();
+    void switchToMenu();
+    
+    
+    //init
+    void createMenu();
 private:
     b2World* world;
     cocos2d::CCTexture2D* m_pSpriteTexture; // weak ref
