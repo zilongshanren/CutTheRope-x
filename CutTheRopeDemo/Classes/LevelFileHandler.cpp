@@ -264,3 +264,16 @@ void LevelFileHelper::moveRopeWithId(int ropeID, anchorType type, int anchorID, 
     }
 
 }
+
+void LevelFileHelper::movePineappleWithID(int pineappleID, cocos2d::CCPoint pt)
+{
+    CCObject *obj;
+    CCARRAY_FOREACH(_pineapples, obj)
+    {
+        PineappleModel *pm = (PineappleModel*)obj;
+        if (pm->id == pineappleID) {
+            pm->position = pt;
+            break;
+        }
+    }
+}

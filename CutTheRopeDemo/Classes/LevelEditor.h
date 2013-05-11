@@ -63,8 +63,10 @@ public:
     void removeRopeAtPosition(CCPoint position);
     void removePineappleAtPosition(CCPoint positioin);
     CCArray* getAllRopesConnectedToPineappleWithID(int pineappleID);
+    CCArray* getAllRopesConnectedToPineappleWithID(int pineappleID, bool setSelectedAnchor);
     
     void selectRopeAnchor(CCPoint touchLocation);
+    void selectPineapple(CCPoint touchLocation);
     
     void longPress(CCPoint pt);
 private:
@@ -83,7 +85,7 @@ private:
     
     CCObject*               _selectedObject;
     CCPoint                 _originalRopeAnchor;
-    
+    CCArray                 *_connectedRopes;
 };
 
 #endif /* defined(__CutTheRopeDemo__LevelEditor__) */

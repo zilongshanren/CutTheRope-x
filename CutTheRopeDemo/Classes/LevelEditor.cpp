@@ -28,7 +28,8 @@ _popupMenu(NULL),
 _ropeSpritesArray(NULL),
 _newRope(NULL),
 _mode(kEditMode),
-_selectedObject(NULL)
+_selectedObject(NULL),
+_connectedRopes(NULL)
 {
     
 }
@@ -38,6 +39,7 @@ LevelEditor::~LevelEditor()
     CC_SAFE_RELEASE_NULL(_ropeSpritesArray);
     CC_SAFE_DELETE(_popupMenu);
     CC_SAFE_DELETE(_newRope);
+    CC_SAFE_RELEASE_NULL(_connectedRopes);
 }
 
 CCScene* LevelEditor::createWithLevel(LevelFileHelper *levelHelper)
@@ -197,7 +199,11 @@ void LevelEditor::ccTouchesBegan(cocos2d::CCSet *pTouches, cocos2d::CCEvent *pEv
     }else{
         switch (_mode) {
             case kEditMode:
+                
                 this->selectRopeAnchor(touchLocation);
+                if (!_selectedObject) {
+                    this->selectPineapple(touchLocation);
+                }
                 if (!_selectedObject && !this->ropeAtPosition(touchLocation)) {
                     this->togglePopupMenu(touchLocation);
                 }
@@ -241,6 +247,20 @@ void LevelEditor::ccTouchesMoved(cocos2d::CCSet *pTouches, cocos2d::CCEvent *pEv
         }
         
         // TODO: move pineapple
+        CCPoint movementVector = ccpSub(touchLocation, oldTouchLocation);
+        CCSprite *selectedSprite = dynamic_cast<CCSprite*>(_selectedObject);
+        if (selectedSprite != NULL) {
+            
+            CCPoint newPosition = ccpAdd(selectedSprite->getPosition(), movementVector);
+            selectedSprite->setPosition(newPosition);
+            // remember which ropes are tied to the selectedSprite
+            CCObject *obj;
+            CCARRAY_FOREACH(_connectedRopes, obj)
+            {
+                RopeSprite *rope = (RopeSprite*)obj;
+                rope->moveSelectedAnchorTo(newPosition);
+            }
+        }
     }
 }
 
@@ -283,6 +303,17 @@ void LevelEditor::ccTouchesEnded(cocos2d::CCSet *pTouches, cocos2d::CCEvent *pEv
         }
         
         // TODO: end moving pineapple
+        CCSprite *pineappleSprite = dynamic_cast<CCSprite*>(_selectedObject);
+        if (pineappleSprite != NULL) {
+            int pineappleID = pineappleSprite->getTag();
+            CCPoint newPineapplePosition = CoordinateHelper::screenPositionToLevelPosition(pineappleSprite->getPosition());
+            
+            _fileHandler->movePineappleWithID(pineappleID, newPineapplePosition);
+        }
+        if (_connectedRopes != NULL) {
+            _connectedRopes->removeAllObjects();
+        }
+        
         _selectedObject = NULL;
     }
 
@@ -474,20 +505,7 @@ void LevelEditor::removePineappleAtPosition(cocos2d::CCPoint positioin)
 
 CCArray* LevelEditor::getAllRopesConnectedToPineappleWithID(int pineappleID)
 {
-    CCArray *tempRopes = CCArray::create();
-    CCObject *obj;
-    CCARRAY_FOREACH(_ropeSpritesArray, obj)
-    {
-        RopeSprite* rope = (RopeSprite*)obj;
-        int bodyAID = rope->getBodyAID();
-        int bodyBID = rope->getBodyBID();
-        
-        if (pineappleID == bodyAID || pineappleID == bodyBID) {
-            tempRopes->addObject(rope);
-        }
-    }
-    
-    return tempRopes;
+    return this->getAllRopesConnectedToPineappleWithID(pineappleID,false);
 }
 
 void LevelEditor::selectRopeAnchor(cocos2d::CCPoint touchLocation)
@@ -514,5 +532,42 @@ void LevelEditor::selectRopeAnchor(cocos2d::CCPoint touchLocation)
             break;
         }
     }
+}
+
+void LevelEditor::selectPineapple(cocos2d::CCPoint touchLocation)
+{
+    CCSprite* sprite = this->pineappleAtPosition(touchLocation);
+    if (sprite) {
+        _selectedObject = sprite;
+        // remember which ropes are tied to the selectedSprite
+        _connectedRopes = this->getAllRopesConnectedToPineappleWithID(sprite->getTag(), true);
+        _connectedRopes->retain();
+    }
+}
+
+CCArray* LevelEditor::getAllRopesConnectedToPineappleWithID(int pineappleID, bool setSelectedAnchor)
+{
+    CCArray *tempRopes = CCArray::create();
+    CCObject *obj;
+    CCARRAY_FOREACH(_ropeSpritesArray, obj)
+    {
+        RopeSprite* rope = (RopeSprite*)obj;
+        int bodyAID = rope->getBodyAID();
+        int bodyBID = rope->getBodyBID();
+        
+        if (pineappleID == bodyAID || pineappleID == bodyBID) {
+            tempRopes->addObject(rope);
+        }
+        
+        if (setSelectedAnchor) {
+            if (pineappleID == bodyAID) {
+                rope->setSelectedAnchorType(kAnchorA);
+            } else if (pineappleID == bodyBID) {
+                rope->setSelectedAnchorType(kAnchorB);
+            }
+        }
+    }
+    
+    return tempRopes;
 }
 
