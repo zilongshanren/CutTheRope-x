@@ -220,11 +220,20 @@ void LevelEditor::togglePopupMenu(cocos2d::CCPoint touchLocation)
     }
 }
 
+
 #pragma mark - PopupMenuDelegate
 void LevelEditor::createPineappleAt(cocos2d::CCPoint position)
 {
     CCLOG("createPineappleAt");
+
+    
+    CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+    PineappleModel *pm = _fileHandler->addPineappleAt(ccp(position.x / winSize.width,
+                                                          position.y / winSize.height));
+    
+    this->createPineappleSpriteFromModel(pm);
     _popupMenu->setMenuEnabled(false);
+
 }
 
 void LevelEditor::createRopeAt(cocos2d::CCPoint position)

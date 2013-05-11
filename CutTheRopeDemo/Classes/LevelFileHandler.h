@@ -28,6 +28,11 @@ public:
     PineappleModel* getPineappleWithID(int id);
     AbstractModel* getModelWithIDArray(int id, CCArray* array);
     
+    void sortArrayById(CCArray *array);
+    int findUnusedIdInArray(CCArray *array);
+    
+    PineappleModel* addPineappleAt(CCPoint pt);
+    
 private:
     LevelFileHelper();
     const char* _levelFile;

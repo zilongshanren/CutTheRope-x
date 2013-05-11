@@ -147,4 +147,54 @@ AbstractModel* LevelFileHelper::getModelWithIDArray(int id, cocos2d::CCArray *ar
     return NULL;
 }
 
+static bool compareScores(const void* p1, const void* p2)
+{
+    AbstractModel* am1 = (AbstractModel*)p1;
+    AbstractModel* am2 = (AbstractModel*)p2;
+    bool result = am1->id < am2->id;
+    return result;
+}
+
+//根据id来排序
+void LevelFileHelper::sortArrayById(cocos2d::CCArray *array)
+{
+    std::sort(array->data->arr,
+              array->data->arr + array->data->num,
+              compareScores);
+}
+
+int LevelFileHelper::findUnusedIdInArray(cocos2d::CCArray *array)
+{
+    int firstUnusedID = -1;
+    int lastID = 0;
+    CCObject *obj;
+    
+    CCARRAY_FOREACH(array, obj)
+    {
+        AbstractModel *am = (AbstractModel*)obj;
+        if (am->id - lastID > 1) {
+            firstUnusedID = lastID + 1;
+            break;
+        }
+        lastID++;
+    }
+    
+    if (firstUnusedID == -1) {
+        firstUnusedID = lastID + 1;
+    }
+    
+    return firstUnusedID;
+}
+
+
+PineappleModel* LevelFileHelper::addPineappleAt(cocos2d::CCPoint pt)
+{
+    int firstUnusedID = this->findUnusedIdInArray(_pineapples);
+    PineappleModel *newPineapple = new PineappleModel;
+    newPineapple->id = firstUnusedID;
+    newPineapple->position = pt;
+    _pineapples->addObject(newPineapple);
+    
+    return newPineapple;
+}
 

@@ -43,6 +43,7 @@ public:
     void createPineappleSpriteFromModel(PineappleModel *pm);
     void createRopeSpriteFromModel(RopeModel *rm);
     
+    
     void togglePopupMenu(CCPoint touchLocation);
 private:
     LevelEditor();
