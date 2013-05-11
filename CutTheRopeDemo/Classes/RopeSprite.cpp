@@ -116,3 +116,49 @@ void RopeSprite::cleanupSprite()
 {
     _ropeSprite->removeFromParentAndCleanup(true);
 }
+
+
+void RopeSprite::setSelectedAnchorType(anchorType type)
+{
+    _selectedAnchor = type;
+}
+anchorType RopeSprite::getSelectedAnchorType()
+{
+    return _selectedAnchor;
+}
+
+CCPoint RopeSprite::getSelectedAnchor()
+{
+    if (_selectedAnchor == kAnchorA) {
+        return CoordinateHelper::levelPositioinToScreenPosition(_ropeModel->achorA);
+    }
+    if (_selectedAnchor == kAnchorB) {
+        return CoordinateHelper::levelPositioinToScreenPosition(_ropeModel->achorB);
+    }
+    return CCPointMake(-1, -1);
+}
+
+void RopeSprite::moveSelectedAnchorTo(CCPoint vector)
+{
+    if (_selectedAnchor == kAnchorA) {
+        _ropeModel->achorA = CoordinateHelper::screenPositionToLevelPosition(vector);
+    }
+    if (_selectedAnchor == kAnchorB) {
+        _ropeModel->achorB = CoordinateHelper::screenPositionToLevelPosition(vector);
+    }
+    this->updateRope();
+}
+
+bool RopeSprite::isValideNewAnchorID(int newAnchorID)
+{
+    int unselectedAnchorID;
+    if (_selectedAnchor == kAnchorA) {
+        unselectedAnchorID = _ropeModel->bodyBId;
+    } else {
+        unselectedAnchorID = _ropeModel->bodyAId;
+    }
+    if (newAnchorID == unselectedAnchorID) {
+        return false;
+    }
+    return true;
+}

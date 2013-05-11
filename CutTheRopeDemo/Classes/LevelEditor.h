@@ -64,6 +64,8 @@ public:
     void removePineappleAtPosition(CCPoint positioin);
     CCArray* getAllRopesConnectedToPineappleWithID(int pineappleID);
     
+    void selectRopeAnchor(CCPoint touchLocation);
+    
     void longPress(CCPoint pt);
 private:
     LevelEditor();
@@ -78,6 +80,9 @@ private:
     
     editorMode              _mode;
     RopeModel*              _newRope;
+    
+    CCObject*               _selectedObject;
+    CCPoint                 _originalRopeAnchor;
     
 };
 

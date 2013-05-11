@@ -27,7 +27,8 @@ _ropeSpriteSheet(NULL),
 _popupMenu(NULL),
 _ropeSpritesArray(NULL),
 _newRope(NULL),
-_mode(kEditMode)
+_mode(kEditMode),
+_selectedObject(NULL)
 {
     
 }
@@ -191,13 +192,16 @@ void LevelEditor::ccTouchesBegan(cocos2d::CCSet *pTouches, cocos2d::CCEvent *pEv
     touchLocation = CCDirector::sharedDirector()->convertToGL(touchLocation);
     
     
-    
     if (pTouches->count() == 2) {
         this->longPress(touchLocation);
     }else{
         switch (_mode) {
             case kEditMode:
-                this->togglePopupMenu(touchLocation);
+                this->selectRopeAnchor(touchLocation);
+                if (!_selectedObject && !this->ropeAtPosition(touchLocation)) {
+                    this->togglePopupMenu(touchLocation);
+                }
+                
                 break;
             case kRopeAnchorPineappleMode:
                 this->selectFirstAnchorPoint(touchLocation);
@@ -220,11 +224,67 @@ void LevelEditor::longPress(cocos2d::CCPoint pt)
 void LevelEditor::ccTouchesMoved(cocos2d::CCSet *pTouches, cocos2d::CCEvent *pEvent)
 {
     CCLOG("touch move count = %d", pTouches->count());
+    
+    
+    if (_selectedObject && _mode == kEditMode) {
+        CCTouch *touch = (CCTouch*)pTouches->anyObject();
+        CCPoint touchLocation = touch->getLocationInView();
+        touchLocation = CCDirector::sharedDirector()->convertToGL(touchLocation);
+        
+        CCPoint oldTouchLocation = touch->getPreviousLocationInView();
+        oldTouchLocation = CCDirector::sharedDirector()->convertToGL(oldTouchLocation);
+        
+    
+        RopeSprite *ropeSprite = dynamic_cast<RopeSprite*>(_selectedObject);
+        if (ropeSprite != NULL) {
+            ropeSprite->moveSelectedAnchorTo(touchLocation);
+        }
+        
+        // TODO: move pineapple
+    }
 }
 
 void LevelEditor::ccTouchesEnded(cocos2d::CCSet *pTouches, cocos2d::CCEvent *pEvent)
 {
     CCLOG("touch end count = %d", pTouches->count());
+    if (_mode == kEditMode) {
+        RopeSprite *rope = dynamic_cast<RopeSprite*>(_selectedObject);
+        if (NULL != rope) {
+            
+            CCTouch *touch = (CCTouch*)pTouches->anyObject();
+            CCPoint touchLocation = touch->getLocationInView();
+            touchLocation = CCDirector::sharedDirector()->convertToGL(touchLocation);
+            
+            // snap to pineapple if rope ends up on top of it
+            int newAnchorID = -1;
+            CCSprite* pineappleAtTouchLocation = this->pineappleAtPosition(touchLocation);
+            if (pineappleAtTouchLocation) {
+                rope->moveSelectedAnchorTo(pineappleAtTouchLocation->getPosition());
+                // get id of pineapple to properly set anchor in connected data model
+                newAnchorID = pineappleAtTouchLocation->getTag();
+            }
+            
+            bool isValidNewAnchor = rope->isValideNewAnchorID(newAnchorID);
+            if (isValidNewAnchor) {
+             
+                _fileHandler->moveRopeWithId(rope->getID(), rope->getSelectedAnchorType(), newAnchorID,
+                                             CoordinateHelper::screenPositionToLevelPosition(touchLocation));
+            } else {
+                _fileHandler->moveRopeWithId(rope->getID(), rope->getSelectedAnchorType(),
+                                             rope->getSelectedAnchorType(),
+                                             CoordinateHelper::screenPositionToLevelPosition(_originalRopeAnchor));
+                
+                rope->moveSelectedAnchorTo(_originalRopeAnchor);
+            }
+            
+            // set selected anchor to none
+            //[rope setSelectedAnchorType:kAnchorNone];
+            rope->setSelectedAnchorType(kAnchorNone);
+        }
+        
+        // TODO: end moving pineapple
+        _selectedObject = NULL;
+    }
 
 }
 
@@ -428,5 +488,31 @@ CCArray* LevelEditor::getAllRopesConnectedToPineappleWithID(int pineappleID)
     }
     
     return tempRopes;
+}
+
+void LevelEditor::selectRopeAnchor(cocos2d::CCPoint touchLocation)
+{
+    CCObject *obj;
+    CCARRAY_FOREACH(_ropeSpritesArray, obj)
+    {
+        RopeSprite *rope = (RopeSprite*)obj;
+        float distanceToAnchorA = ccpDistance(rope->getAnchorA(), touchLocation);
+        if (distanceToAnchorA < 10) {
+            _selectedObject = rope;
+            rope->setSelectedAnchorType(kAnchorA);
+            _originalRopeAnchor = rope->getAnchorA();
+        }
+        
+        float distanceToAnchorB = ccpDistance(rope->getAnchorB(), touchLocation);
+        if (distanceToAnchorB < 10) {
+            _selectedObject = rope;
+            rope->setSelectedAnchorType(kAnchorB);
+            _originalRopeAnchor = rope->getAnchorB();
+        }
+        
+        if (_selectedObject) {
+            break;
+        }
+    }
 }
 

@@ -37,9 +37,18 @@ public:
     float distanceToPoint(CCPoint pt);
     CCRect getBoundingBox();
     void cleanupSprite();
+    
+    
+    void setSelectedAnchorType(anchorType type);
+    anchorType getSelectedAnchorType();
+    CCPoint getSelectedAnchor();
+    void moveSelectedAnchorTo(CCPoint vector);
+    bool isValideNewAnchorID(int newAnchorID);
 private:
     CCSprite    *_ropeSprite;
     RopeModel   *_ropeModel;
+    anchorType  _selectedAnchor;
+
 };
 
 #endif /* defined(__CutTheRopeDemo__RopeSprite__) */

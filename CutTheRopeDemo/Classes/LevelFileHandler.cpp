@@ -239,3 +239,28 @@ void LevelFileHelper::removePineappleWithID(int id)
     }
     _pineapples->removeObject(pineappleToBeRemoved);
 }
+
+void LevelFileHelper::moveRopeWithId(int ropeID, anchorType type, int anchorID, cocos2d::CCPoint pt)
+{
+    CCObject *obj;
+    CCARRAY_FOREACH(_ropes, obj)
+    {
+        RopeModel *ropeModel = (RopeModel*)obj;
+        if (ropeModel->id == ropeID) {
+            switch (anchorID) {
+                case kAnchorA:
+                    ropeModel->achorA = pt;
+                    ropeModel->bodyAId = anchorID;
+                    break;
+                case kAnchorB:
+                    ropeModel->achorB = pt;
+                    ropeModel->bodyBId = anchorID;
+                    break;
+                default:
+                    break;
+
+            }
+        }
+    }
+
+}

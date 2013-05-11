@@ -10,6 +10,7 @@
 #define __CutTheRopeDemo__LevelFileHandler__
 
 #include "cocos2d.h"
+#include "Constants.h"
 
 USING_NS_CC;
 
@@ -35,6 +36,8 @@ public:
     void addRopeFromModel(RopeModel *rm);
     void removeRopeWithID(int id);
     void removePineappleWithID(int id);
+    
+    void moveRopeWithId(int ropeID, anchorType type,int anchorID, CCPoint pt);
     
 private:
     LevelFileHelper();
