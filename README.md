@@ -10,9 +10,9 @@ Notes:
 
 1.Due to the lack of a cross-platform guesture regonizer.
 so I don't implement a "long press" guesture. I use two tap count for the long press event.
-If you can confuse about this, you should read the follows tutorials first.
+If you are confused about this, you should read the follows tutorials first.
 
-2.CCMenuAdvanced is a extension of cocos2d-iphone, but it is not available in cocos2d-x. 
+2.CCMenuAdvanced is a extension of cocos2d-iphone, but it is not available in cocos2d-x now. 
 So I just use CCMenu to display menu level.
     
 
