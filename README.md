@@ -24,3 +24,7 @@ Reference:
 [http://www.raywenderlich.com/14812/how-to-make-a-game-like-cut-the-rope-part-2](http://www.raywenderlich.com/14812/how-to-make-a-game-like-cut-the-rope-part-2)
 
 [http://www.raywenderlich.com/31249/create-your-own-level-editor-part-3](http://www.raywenderlich.com/14812/how-to-make-a-game-like-cut-the-rope-part-2)
+
+**Licence:**
+
+Do What The Fuck You Want To Public License ([WTFPL](http://www.wtfpl.net/)).
